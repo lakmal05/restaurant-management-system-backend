@@ -23,14 +23,13 @@ export class StoreLocatorEntity extends EntityRelationalHelper {
   @Column({ type: 'text' })
   city: string;
 
-  @Column({ type: 'text' })
-  country: string;
 
   @Column({ type: 'text' })
   url: string;
 
   @Column({ nullable: true })
   postalCode: string;
+
 
   @CreateDateColumn()
   createdAt: Date;
