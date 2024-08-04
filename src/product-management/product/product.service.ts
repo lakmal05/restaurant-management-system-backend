@@ -33,4 +33,7 @@ export class ProductService {
   findAll(filters: ProductFiltersDto) {
     return this.productRepository.findAll(filters);
   }
+  changeStatus(productId: string, status: number) {
+    return this.productRepository.changeStatus(productId, status);
+  }
 }

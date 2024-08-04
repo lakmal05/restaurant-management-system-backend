@@ -10,11 +10,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { StaffService } from './staff.service';
-import { ApiTags } from '@nestjs/swagger';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { StaffFiltersDto } from './dto/staff-filters.dto';
 
-@ApiTags('Staff')
 @Controller({
   path: 'staff',
 })

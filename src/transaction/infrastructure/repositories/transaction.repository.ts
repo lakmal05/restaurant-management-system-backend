@@ -34,9 +34,9 @@ export class TransactionRepository implements TransactionAbstractRepository {
         lastName: data.lastName,
         email: data.email,
         deviceId: 'device id',
-        role: {
-          id: data.roleId,
-        },
+        // role: {
+        //   id: data.roleId,
+        // },
         file: {
           id: data.fileId,
         },

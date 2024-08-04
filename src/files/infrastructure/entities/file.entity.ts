@@ -10,6 +10,7 @@ import {
   OneToMany,
   JoinColumn,
   OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import appConfig from '../../../config/app.config';
@@ -63,9 +64,9 @@ export class FileEntity extends EntityRelationalHelper {
   @JoinColumn({ name: 'categoryId' })
   category: CategoryEntity[];
 
-
-
-
+  @ManyToOne(() => ProductEntity, (product) => product.file)
+  @JoinColumn({ name: 'productId' })
+  product: ProductEntity[];
 
   @OneToOne(() => UserEntity, (user) => user.file)
   user: UserEntity;

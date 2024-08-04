@@ -78,7 +78,6 @@ export class StoreLocatorRepository implements StoreLocatorAbstractRepository {
         addressLine: data.addressLine,
         city: data.city,
         postalCode: data.postalCode,
-        country: data.country,
         url: data.url,
       },
     );

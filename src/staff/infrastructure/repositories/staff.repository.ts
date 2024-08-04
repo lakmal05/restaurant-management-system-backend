@@ -26,8 +26,6 @@ export class StaffRepository implements StaffAbstractRepository {
       .leftJoinAndSelect('user.role', 'role')
       .leftJoinAndSelect('user.file', 'file');
 
-
-
     if (filters.name) {
       queryBuilder.andWhere(
         '(user.firstName ILIKE :name OR user.lastName ILIKE :name)',

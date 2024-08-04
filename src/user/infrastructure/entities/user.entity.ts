@@ -52,8 +52,6 @@ export class UserEntity extends EntityRelationalHelper {
   @Column({ type: String, nullable: true })
   deviceId: string;
 
-  @Column({ type: String, nullable: true })
-  fcmToken: string;
 
   @OneToOne(() => StaffEntity, (staff) => staff.user)
   staff: StaffEntity;
@@ -69,7 +67,6 @@ export class UserEntity extends EntityRelationalHelper {
   @JoinColumn({ name: 'reviewId' })
   review: ReviewEntity[];
 
-  
 
   @OneToOne(() => FileEntity, (file) => file.user, { nullable: true })
   @JoinColumn({ name: 'fileId' })
