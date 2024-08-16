@@ -39,7 +39,6 @@ export class ProductEntity extends EntityRelationalHelper {
   @OneToMany(() => FileEntity, (file) => file.product)
   file: FileEntity[];
 
-
   @CreateDateColumn()
   createdAt: Date;
 

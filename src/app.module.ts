@@ -54,6 +54,9 @@ import { SendgridModule } from './services/sendgrid/sendgrid.module';
 import { StoreLocatorModule } from './store-locator/store-locator.module';
 import { SeylanMastercardModule } from './services/payment-gateways/seylan-mastercard/seylan-mastercard.module';
 import { TestModule } from './services/payment-gateways/test/test.module';
+import { TempUserController } from './temp-user/temp-user.controller';
+import { OrderModule } from './order/order.module';
+import { OrderItemModule } from './order-item/order-item.module';
 
 @Module({
   imports: [
@@ -127,10 +130,12 @@ import { TestModule } from './services/payment-gateways/test/test.module';
     StoreLocatorModule,
     SeylanMastercardModule,
     TestModule,
+    OrderModule,
+    OrderItemModule,
   ],
   providers: [CleanupService, CacheMiddleware],
   exports: [CleanupService],
-  controllers: [],
+  controllers: [TempUserController],
 })
 export class AppModule implements NestModule, OnModuleDestroy {
   constructor(private readonly cleanupService: CleanupService) {}

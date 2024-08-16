@@ -13,7 +13,7 @@ export class CreateProductDto {
   price: number;
 
   @IsArray()
-  fileId: string[];
+  fileIds: string[];
 
   @IsString()
   categoryId: string;

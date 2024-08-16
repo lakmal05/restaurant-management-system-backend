@@ -15,6 +15,7 @@ import { MailService } from 'src/mail/mail.service';
 import { EmailActionEnum } from 'src/common/enum/email-action.enum';
 import { SeylanMastercardService } from 'src/services/payment-gateways/seylan-mastercard/seylan-mastercard.service';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
+import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 
 @Injectable()
 export class TransactionRepository implements TransactionAbstractRepository {
@@ -24,6 +25,7 @@ export class TransactionRepository implements TransactionAbstractRepository {
     private readonly seylanMastercardService: SeylanMastercardService,
     // private readonly discountService: DiscountService,
   ) {}
+  createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {}
 
   async createStaff(data: CreateStaffDto) {
     return this.connection.transaction(async (manager) => {

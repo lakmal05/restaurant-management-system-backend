@@ -23,13 +23,6 @@ export class CategoryEntity extends EntityRelationalHelper {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
-  parentId: string | null;
-
-  @ManyToOne(() => CategoryEntity, { nullable: true })
-  @JoinColumn({ name: 'parentId' })
-  parent: CategoryEntity;
-
   @ManyToOne(() => FileEntity, (file) => file.category)
   @JoinColumn({ name: 'fileId' })
   file: FileEntity;

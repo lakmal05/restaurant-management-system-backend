@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { TransactionAbstractRepository } from './infrastructure/repositories/transaction.abstract.repository';
 import { CreateOrderTransactionDto } from './dto/transaction-create-order.dto';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
+import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 
 @Injectable()
 export class TransactionService {
+ 
   constructor(
     private readonly transactionRepository: TransactionAbstractRepository,
   ) {}
@@ -34,4 +36,8 @@ export class TransactionService {
       data,
     );
   }
+  createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {
+   return this.transactionRepository.createCashOnDeliveryOrderTransaction(data)
+  }
+
 }

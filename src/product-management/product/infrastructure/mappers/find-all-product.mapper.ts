@@ -15,11 +15,7 @@ export class FindAllProductsMapper {
       name: source.name,
       status: source.status,
       category: {
-        parent: source.category.parent?.name || null,
-        children: source.category.name,
-        categoryHierarchy: source.category.parent?.name
-          ? source.category.parent.name + ' > ' + source.category.name
-          : source.category.name,
+        name: source.category.name,
       },
       file: source.file
         ? {

@@ -11,11 +11,11 @@ export class CategoryService {
   ) {}
 
   findAll() {
-    return this.categoryRepository.findAll();
+   // return this.categoryRepository.findAll();
   }
 
   adminFindAll(filters: CategoryFiltersDto) {
-    return this.categoryRepository.adminFindAll(filters);
+//return this.categoryRepository.adminFindAll(filters);
   }
 
   findById(categoryId: string) {
@@ -26,14 +26,8 @@ export class CategoryService {
     return this.categoryRepository.findByName(name);
   }
 
-  findAllParentCategories(data: any) {
-    return this.categoryRepository.findAllParentCategories(data);
-  }
-
-  findAllSubCategoriesByParentId(parentId: string) {
-    return this.categoryRepository.findAllSubCategoriesByParentId(parentId);
-  }
-
+ 
+ 
   async create(data: CategoryDto) {
     return await this.categoryRepository.create(data);
   }
@@ -44,10 +38,6 @@ export class CategoryService {
       return this.categoryRepository.update(categoryId, data);
     }
     throw new HttpException('category not found', HttpStatus.NOT_FOUND);
-  }
-
-  findAllTrendingNow() {
-    return this.categoryRepository.findAllTrendingNow();
   }
 
   changeStatus(categoryId: string, status: number) {

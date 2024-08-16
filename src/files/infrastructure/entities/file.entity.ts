@@ -61,12 +61,10 @@ export class FileEntity extends EntityRelationalHelper {
   }
 
   @OneToMany(() => CategoryEntity, (category) => category.file)
-  @JoinColumn({ name: 'categoryId' })
   category: CategoryEntity[];
 
   @ManyToOne(() => ProductEntity, (product) => product.file)
-  @JoinColumn({ name: 'productId' })
-  product: ProductEntity[];
+  product: ProductEntity;
 
   @OneToOne(() => UserEntity, (user) => user.file)
   user: UserEntity;

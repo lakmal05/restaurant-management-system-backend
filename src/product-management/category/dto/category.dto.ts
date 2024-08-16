@@ -10,7 +10,5 @@ export class CategoryDto {
   @IsOptional()
   fileId: string;
 
-  @IsString()
-  @IsOptional()
-  parentId: string;
+
 }

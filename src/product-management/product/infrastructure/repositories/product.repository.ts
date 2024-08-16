@@ -40,11 +40,7 @@ export class ProductRepository implements ProductAbstractRepository {
         maxPrice: filters.maxPrice,
       });
     }
-    // if (filters.categoryId) {
-    //   queryBuilder.andWhere('product.categoryId = :categoryId', {
-    //     categoryId: filters.categoryId,
-    //   });
-    // }
+
     if (filters.status !== undefined) {
       if (filters.status === 0 || isNaN(filters.status)) {
         queryBuilder.andWhere('product.status IN (:...statuses)', {
@@ -75,17 +71,30 @@ export class ProductRepository implements ProductAbstractRepository {
     };
   }
 
-  create(data: CreateProductDto) {
-    // for (let fId of data.fileId) {
-    // }
-    return this.productRepository.save({
+  async create(data: CreateProductDto) {
+    console.log(data);
+
+    return await this.productRepository.save({
       name: data.name,
       price: data.price,
       description: data.description,
-      // category:{
-
-      // }
+      category: {
+        id: data.categoryId,
+      },
     });
+    // for (let fId of data.fileIds) {
+    //   await this.productRepository.update(
+    //     { id: createdProduct.id },
+    //     {
+    //     file:{
+    //       id
+    //     }
+    //     },
+    //   );
+    // }
+  
+  //name 
+  //time datae pers count note email 
   }
 
   async findByName(productName: string) {
