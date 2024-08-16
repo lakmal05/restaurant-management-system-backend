@@ -27,15 +27,7 @@ export class TransactionService {
     return this.transactionRepository.createOnlinePaymentOrderTransaction(data);
   }
 
-  updateOnlineTransactionResponseByOrderId(
-    orderId: string,
-    data: UpdatePaymentTransactionResponseDto,
-  ) {
-    return this.transactionRepository.updateOnlineTransactionResponseByOrderId(
-      orderId,
-      data,
-    );
-  }
+ 
   createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {
    return this.transactionRepository.createCashOnDeliveryOrderTransaction(data)
   }

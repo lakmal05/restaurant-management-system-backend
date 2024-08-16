@@ -7,18 +7,9 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-  @Get('find-all-by-productId/:prodcutId')
-  findReviewsByProcutIdNUserId(
-    @Param('prodcutId') prodcutId: string,
-    @Query('userId') userId: string,
-  ) {
-    //  return this.reviewService.findReviewsByProcutIdNUserId()
-  }
+ 
 
-  @Get('find-all')
-  findAll() {
-    return this.reviewService.findAll();
-  }
+ 
   /**
    * Create a new Review by customer. this is allow only to item orderd customer
    * @param data
@@ -34,12 +25,12 @@ export class ReviewController {
    * @param productBaseVariantId
    * @returns
    */
-  @Get('find-all-by-productBaseVariantId/:productBaseVariantId')
-  findAllByProdutBaseVariantId(
-    @Param('productBaseVariantId') productBaseVariantId: string,
+  @Get('find-all-by-productId/:productId')
+  findAllByProdutId(
+    @Param('productId') productId: string,
   ) {
-    return this.reviewService.findAllByProdutBaseVariantId(
-      productBaseVariantId,
+    return this.reviewService.findAllByProductId(
+      productId,
     );
   }
 
@@ -48,5 +39,4 @@ export class ReviewController {
     return this.reviewService.update(reviewId, data);
   }
 
-  // @Patch('delete/:reviewId')
 }

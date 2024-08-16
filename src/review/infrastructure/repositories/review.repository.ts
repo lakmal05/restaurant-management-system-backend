@@ -16,20 +16,8 @@ export class ReviewRepository implements ReviewAbstractRepository {
     // private readonly productRepository: Repository<ProductEntity>,
   ) {}
 
-  async findAll() {
-    // const allReviews = await this.productRepository.find({
-    //   relations: {
-    //     category: {
-    //       parent: true,
-    //     },
-    //     // file: true,
-    //     // review: true,
-    //   },
-    // });
-    // // return allReviews;
-    // return AdminFindAllReviewMapper.toDomain(allReviews);
-  }
-  async findAllByProdutBaseVariantId(productBaseVariantId: string) {
+
+  async findAllByProductId(productId: string) {
     // const allReviews = await this.reviewRepository.find({
     //   where: {
     //     productBaseVariant: {
@@ -62,6 +50,6 @@ export class ReviewRepository implements ReviewAbstractRepository {
       { count: data.count, description: data.description },
     );
     return update;
-    // return ReviewMapper.toDomain(update);
+
   }
 }

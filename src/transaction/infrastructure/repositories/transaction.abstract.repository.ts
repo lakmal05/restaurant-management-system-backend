@@ -3,10 +3,7 @@ import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-paym
 import { CreateOrderTransactionDto } from 'src/transaction/dto/transaction-create-order.dto';
 
 export abstract class TransactionAbstractRepository {
-  abstract updateOnlineTransactionResponseByOrderId(
-    orderId: string,
-    data: UpdatePaymentTransactionResponseDto,
-  );
+ 
 
   abstract createOnlinePaymentOrderTransaction(data: CreateOrderTransactionDto);
 
