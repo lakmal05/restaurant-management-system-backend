@@ -8,11 +8,6 @@ import { CreateCustomerDto as RegisterCustomerDto } from './dto/create-customer.
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
-  // @Post('register')
-  // validateCustomer(@Body() data: RegisterCustomerDto) {
-  //   return this.customerService.validateCustomer(data);
-  // }
-
   @Get('find-all')
   findAll() {
     return this.customerService.findAll();

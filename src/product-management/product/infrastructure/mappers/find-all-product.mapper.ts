@@ -36,6 +36,7 @@ export class FindAllProductsMapper {
       const { createdAt, updatedAt, ...rest } = productFile;
       const { createdAt: fileCreatedAt, __entity, ...fileRest } = rest.file;
       return {
+        isDeafult: rest?.isDefault,
         ...fileRest,
       };
     });

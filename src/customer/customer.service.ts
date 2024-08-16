@@ -60,11 +60,5 @@ export class CustomerService {
   async update(data) {
     return await this.customerRepository.update(data);
   }
-  // async resetPasswd(data: ResetPasswdDto) {
-  //   const isValidted = await this.smsService.validateOtp(data.email, data.otp);
-  //   if (isValidted) {
-  //     return this.customerRepository.resetPasswd(data.email, data.newPassword);
-  //   }
-  //   throw new HttpException('Invalid OTP', HttpStatus.NOT_ACCEPTABLE);
-  // }
+
 }

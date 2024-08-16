@@ -30,11 +30,10 @@ export class CustomerRepository implements CustomerAbstractRepository {
     return CustomerMapper.toDomain(user);
   }
 
+  
   async update(data) {
     // await this.customerRepository.
   }
 
-  async resetPasswd(email: string, newPassword: string) {
  
-  }
 }

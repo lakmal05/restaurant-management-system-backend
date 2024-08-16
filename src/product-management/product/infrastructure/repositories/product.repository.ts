@@ -88,10 +88,11 @@ export class ProductRepository implements ProductAbstractRepository {
         },
       });
 
-      for (let fId of data.fileIds) {
+      for (let file of data.fileIds) {
         await manager.getRepository(ProductFileEntity).save({
+          isDefault: file.isDefault,
           file: {
-            id: fId,
+            id: file.id,
           },
           product: {
             id: createdProduct.id,

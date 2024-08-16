@@ -22,16 +22,14 @@ export class ProductFileEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
   @ManyToOne(() => FileEntity, (file) => file.productFile)
   @JoinColumn({ name: 'fileId' })
   file: FileEntity;
 
+  @Column({ default: false, nullable: true })
+  isDefault: boolean;
 
-  @ManyToOne(
-    () => ProductEntity,
-    (product) => product.productFile,
-  )
+  @ManyToOne(() => ProductEntity, (product) => product.productFile)
   @JoinColumn({ name: 'productId' })
   product: ProductEntity;
 
