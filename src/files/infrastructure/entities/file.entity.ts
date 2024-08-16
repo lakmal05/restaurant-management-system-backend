@@ -19,6 +19,7 @@ import { CategoryEntity } from 'src/product-management/category/infrastructure/e
 import { ProductEntity } from 'src/product-management/product/infrastructure/entites/product.entity';
 import { UserEntity } from 'src/user/infrastructure/entities/user.entity';
 import { ProductFileEntity } from 'src/product-file/infrastructure/entites/product-file.entity';
+import { DiscountEntity } from 'src/discount/infrastructure/entites/discount.entity';
 
 @Entity({ name: 'file' })
 export class FileEntity extends EntityRelationalHelper {
@@ -70,6 +71,10 @@ export class FileEntity extends EntityRelationalHelper {
 
   @OneToOne(() => UserEntity, (user) => user.file)
   user: UserEntity;
+
+  @OneToOne(() => DiscountEntity, (discount) => discount.file)
+  @JoinColumn({ name: 'discountId' })
+  discount: DiscountEntity;
 
   @CreateDateColumn()
   createdAt: Date;
