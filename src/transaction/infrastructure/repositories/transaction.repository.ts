@@ -13,7 +13,6 @@ import { CreateOrderTransactionDto } from 'src/transaction/dto/transaction-creat
 
 import { MailService } from 'src/mail/mail.service';
 import { EmailActionEnum } from 'src/common/enum/email-action.enum';
-import { SeylanMastercardService } from 'src/services/payment-gateways/seylan-mastercard/seylan-mastercard.service';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
 import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 
@@ -22,7 +21,6 @@ export class TransactionRepository implements TransactionAbstractRepository {
   constructor(
     private readonly connection: Connection,
     private readonly mailService: MailService,
-    private readonly seylanMastercardService: SeylanMastercardService,
     // private readonly discountService: DiscountService,
   ) {}
   createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {}

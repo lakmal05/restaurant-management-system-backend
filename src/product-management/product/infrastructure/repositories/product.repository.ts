@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, In, Repository } from 'typeorm';
+import { Connection, ILike, In, Repository } from 'typeorm';
 import { ProductAbstractRepository } from './product.abstract.repositories';
 import { ProductEntity } from '../entites/product.entity';
 import { CreateProductDto } from '../../dto/create-product.dto';
 import { ProductFiltersDto } from '../../dto/product-filters.dto';
 import { StatusEnum } from 'src/common/enum/status.enum';
 import { FindAllProductsMapper } from '../mappers/find-all-product.mapper';
+import { ProductFileEntity } from 'src/product-file/infrastructure/entites/product-file.entity';
 
 @Injectable()
 export class ProductRepository implements ProductAbstractRepository {
   constructor(
+    private readonly connection: Connection,
+
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
   ) {}
@@ -23,7 +26,8 @@ export class ProductRepository implements ProductAbstractRepository {
     const queryBuilder = this.productRepository
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.file', 'file');
+      .leftJoinAndSelect('product.productFile', 'productFile')
+      .leftJoinAndSelect('productFile.file', 'file');
 
     if (filters.name) {
       queryBuilder.andWhere('product.name ILIKE :name', {
@@ -74,27 +78,30 @@ export class ProductRepository implements ProductAbstractRepository {
   async create(data: CreateProductDto) {
     console.log(data);
 
-    return await this.productRepository.save({
-      name: data.name,
-      price: data.price,
-      description: data.description,
-      category: {
-        id: data.categoryId,
-      },
+    return await this.connection.transaction(async (manager) => {
+      const createdProduct = await manager.getRepository(ProductEntity).save({
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        category: {
+          id: data.categoryId,
+        },
+      });
+
+      for (let fId of data.fileIds) {
+        await manager.getRepository(ProductFileEntity).save({
+          file: {
+            id: fId,
+          },
+          product: {
+            id: createdProduct.id,
+          },
+        });
+      }
     });
-    // for (let fId of data.fileIds) {
-    //   await this.productRepository.update(
-    //     { id: createdProduct.id },
-    //     {
-    //     file:{
-    //       id
-    //     }
-    //     },
-    //   );
-    // }
-  
-  //name 
-  //time datae pers count note email 
+
+    //name
+    //time datae pers count note email
   }
 
   async findByName(productName: string) {

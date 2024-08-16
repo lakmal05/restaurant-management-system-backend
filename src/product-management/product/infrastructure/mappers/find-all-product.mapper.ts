@@ -10,24 +10,34 @@ export class FindAllProductsMapper {
   }
 
   static mapItem(source) {
+    console.log(source.productFile);
+
     const mappedProduct = {
       id: source.id,
       name: source.name,
       status: source.status,
       category: {
+        id: source.category.name,
         name: source.category.name,
       },
-      file: source.file
-        ? {
-            originalPath: source.file?.originalPath,
-            smallPath: source.file?.smallPath,
-            mediumPath: source.file?.mediumPath,
-            largePath: source.file?.largePath,
-          }
+      productFile: source.productFile
+        ? this.mapProductFiles(source.productFile)
         : null,
     };
 
     return mappedProduct;
   }
-}
 
+  static mapProductFiles(files: any) {
+    if (!Array.isArray(files)) {
+      return [];
+    }
+    return files.map((productFile) => {
+      const { createdAt, updatedAt, ...rest } = productFile;
+      const { createdAt: fileCreatedAt, __entity, ...fileRest } = rest.file;
+      return {
+        ...fileRest,
+      };
+    });
+  }
+}

@@ -18,6 +18,7 @@ import { AppConfig } from 'src/config/app-config.type';
 import { CategoryEntity } from 'src/product-management/category/infrastructure/entites/category.entity';
 import { ProductEntity } from 'src/product-management/product/infrastructure/entites/product.entity';
 import { UserEntity } from 'src/user/infrastructure/entities/user.entity';
+import { ProductFileEntity } from 'src/product-file/infrastructure/entites/product-file.entity';
 
 @Entity({ name: 'file' })
 export class FileEntity extends EntityRelationalHelper {
@@ -63,8 +64,9 @@ export class FileEntity extends EntityRelationalHelper {
   @OneToMany(() => CategoryEntity, (category) => category.file)
   category: CategoryEntity[];
 
-  @ManyToOne(() => ProductEntity, (product) => product.file)
-  product: ProductEntity;
+  @OneToMany(() => ProductFileEntity, (productFile) => productFile.file)
+  @JoinColumn({ name: 'productFileId' })
+  productFile: ProductFileEntity[];
 
   @OneToOne(() => UserEntity, (user) => user.file)
   user: UserEntity;

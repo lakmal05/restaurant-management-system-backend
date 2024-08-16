@@ -11,11 +11,11 @@ export class CategoryService {
   ) {}
 
   findAll() {
-   // return this.categoryRepository.findAll();
+    return this.categoryRepository.findAll();
   }
 
   adminFindAll(filters: CategoryFiltersDto) {
-//return this.categoryRepository.adminFindAll(filters);
+    return this.categoryRepository.adminFindAll(filters);
   }
 
   findById(categoryId: string) {
@@ -26,8 +26,6 @@ export class CategoryService {
     return this.categoryRepository.findByName(name);
   }
 
- 
- 
   async create(data: CategoryDto) {
     return await this.categoryRepository.create(data);
   }
@@ -40,6 +38,5 @@ export class CategoryService {
     throw new HttpException('category not found', HttpStatus.NOT_FOUND);
   }
 
-  changeStatus(categoryId: string, status: number) {
-  }
+  changeStatus(categoryId: string, status: number) {}
 }

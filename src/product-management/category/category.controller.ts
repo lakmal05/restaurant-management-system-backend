@@ -26,14 +26,12 @@ export class CategoryController {
   @Get(Prefixes.admin + 'category/' + 'find-all')
   adminFindAll(
     @Query('name') name?: string,
-    @Query('parentCategoryId') parentCategoryId?: string,
     @Query('status') status?: number,
     @Query('perPage') perPage?: number,
     @Query('page') page?: number,
   ) {
     const filters: CategoryFiltersDto = {
       name,
-      parentCategoryId,
       status,
       perPage,
       page,

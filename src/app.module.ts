@@ -52,11 +52,10 @@ import { MailModule } from './mail/mail.module';
 import { SendgridModule } from './services/sendgrid/sendgrid.module';
 
 import { StoreLocatorModule } from './store-locator/store-locator.module';
-import { SeylanMastercardModule } from './services/payment-gateways/seylan-mastercard/seylan-mastercard.module';
-import { TestModule } from './services/payment-gateways/test/test.module';
 import { TempUserController } from './temp-user/temp-user.controller';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
+import { ProductFileModule } from './product-file/product-file.module';
 
 @Module({
   imports: [
@@ -128,10 +127,9 @@ import { OrderItemModule } from './order-item/order-item.module';
     MailModule,
     SendgridModule,
     StoreLocatorModule,
-    SeylanMastercardModule,
-    TestModule,
     OrderModule,
     OrderItemModule,
+    ProductFileModule,
   ],
   providers: [CleanupService, CacheMiddleware],
   exports: [CleanupService],
