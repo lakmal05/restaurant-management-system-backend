@@ -58,6 +58,7 @@ import { OrderItemModule } from './order-item/order-item.module';
 import { ProductFileModule } from './product-file/product-file.module';
 import { FacilitiesModule } from './facilities/facilities.module';
 import { DiscountModule } from './discount/discount.module';
+import { GalleryModule } from './gallery/gallery.module';
 
 @Module({
   imports: [
@@ -134,6 +135,7 @@ import { DiscountModule } from './discount/discount.module';
     ProductFileModule,
     FacilitiesModule,
     DiscountModule,
+    GalleryModule,
   ],
   providers: [CleanupService, CacheMiddleware],
   exports: [CleanupService],
