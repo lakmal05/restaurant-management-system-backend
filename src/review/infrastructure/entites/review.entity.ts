@@ -23,8 +23,6 @@ export class ReviewEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
-
   @ManyToOne(() => UserEntity, (user) => user.review)
   @JoinColumn({ name: 'userId' })
   user: UserEntity;
