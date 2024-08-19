@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomerMapper } from '../mappers/customer.mapper';
 import { GalleryEntity } from '../entites/gallery.entity';
+import { FileEntity } from 'src/files/infrastructure/entities/file.entity';
 
 @Injectable()
 export class GalleryRepository implements GalleryAbstractRepository {
@@ -21,12 +22,16 @@ export class GalleryRepository implements GalleryAbstractRepository {
   }
 
   async upload(data: any) {
-    console.log(data.fileIds);
+    for (let fileId of data.fileIds) {
+      await this.galleryRepository.save({
+        file: {
+          id: fileId,
+        },
+      });
+    }
+  }
 
-    await this.galleryRepository.save({
-      file: {
-        id: data.fileIds[0],
-      },
-    });
+  async delete(galleryId: string) {
+    return this.galleryRepository.delete({ id: galleryId });
   }
 }

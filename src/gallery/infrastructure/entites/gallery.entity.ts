@@ -8,6 +8,7 @@ import {
   Entity,
   Index,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -22,7 +23,7 @@ export class GalleryEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => FileEntity, (file) => file.gallery)
+  @ManyToOne(() => FileEntity, (file) => file.gallery)
   @JoinColumn({ name: 'fileId' })
   file: FileEntity;
 

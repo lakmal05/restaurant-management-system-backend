@@ -12,4 +12,8 @@ export class GalleryService {
   findAll() {
     return this.galleryRepository.findAll();
   }
+
+  delete(galleryId: string) {
+    return this.galleryRepository.delete(galleryId);
+  }
 }

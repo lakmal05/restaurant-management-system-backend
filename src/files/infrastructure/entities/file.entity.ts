@@ -77,7 +77,7 @@ export class FileEntity extends EntityRelationalHelper {
   @JoinColumn({ name: 'discountId' })
   discount: DiscountEntity;
 
-  @ManyToOne(() => GalleryEntity, (gallery) => gallery.file)
+  @OneToMany(() => GalleryEntity, (gallery) => gallery.file)
   @JoinColumn({ name: 'galleryId' })
   gallery: GalleryEntity[];
 

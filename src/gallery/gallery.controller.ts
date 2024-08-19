@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GalleryService } from './gallery.service';
 
 @Controller('gallery')
@@ -13,5 +13,9 @@ export class GalleryController {
   @Get('find-all')
   findAll() {
     return this.galleryService.findAll();
+  }
+  @Delete('delete/:galleryId')
+  delete(@Param('galleryId') galleryId: string) {
+    return this.galleryService.delete(galleryId);
   }
 }
