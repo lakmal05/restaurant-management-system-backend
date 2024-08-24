@@ -93,7 +93,7 @@ export class TransactionRepository implements TransactionAbstractRepository {
     return encryptedPassword;
   }
 
-  async createOnlinePaymentOrderTransaction(data: CreateOrderTransactionDto) {
+  async createOnlinePaymentOrderTransaction(data: CreateOrderDto) {
     // const orderStatus = await this.orderStatusService.findIdByStatusName(
     //   OrderStatusEnum.PENDING,
     // );

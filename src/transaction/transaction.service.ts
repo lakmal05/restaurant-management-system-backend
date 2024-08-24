@@ -23,7 +23,7 @@ export class TransactionService {
     return await this.transactionRepository.registerCustomer(data);
   }
 
-  createOnlinePaymentOrderTransaction(data: CreateOrderTransactionDto) {
+  createOnlinePaymentOrderTransaction(data: CreateOrderDto) {
     return this.transactionRepository.createOnlinePaymentOrderTransaction(data);
   }
 

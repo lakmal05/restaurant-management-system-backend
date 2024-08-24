@@ -1,4 +1,4 @@
-import { Transform } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
 
@@ -7,11 +7,10 @@ export class CommonLoginDto {
   @IsString()
   @Transform(lowerCaseTransformer)
   @IsEmail({}, { message: 'Please enter a valid email address' })
-  email: string;
+  private email: string;
 
   @IsOptional()
   @IsString()
-  // @IsEmail({}, { message: 'Please enter a valid email address' })
   username: string;
 
   @IsNotEmpty()
@@ -23,4 +22,8 @@ export class CommonLoginDto {
 
   @IsOptional()
   fcmToken: string;
+
+  getEmail(): string {
+    return this.email;
+  }
 }
