@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   Req,
 } from '@nestjs/common';
@@ -46,5 +47,10 @@ export class ProductController {
       page,
     };
     return this.productService.findAll(filters);
+  }
+
+  @Put('product/' + 'update/' + ':productId')
+  update(@Param('productId') productId: string, @Body() data) {
+    return this.productService.update(productId, data);
   }
 }

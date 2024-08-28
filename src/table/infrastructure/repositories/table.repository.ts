@@ -6,8 +6,8 @@ import { TableAbstractRepository } from './table.abstract.repository';
 
 @Injectable()
 export class TableRepository implements TableAbstractRepository {
-  constructor(
-    @InjectRepository(TableEntity)
-    private readonly tableRepository: Repository<TableEntity>,
-  ) {}
+  // constructor(
+  //   @InjectRepository(TableEntity)
+  //   private readonly tableRepository: Repository<TableEntity>,
+  // ) {}
 }

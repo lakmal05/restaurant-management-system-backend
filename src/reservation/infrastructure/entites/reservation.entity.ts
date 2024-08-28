@@ -24,7 +24,6 @@ export class ReservationEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
   @Column()
   status: string;
 
