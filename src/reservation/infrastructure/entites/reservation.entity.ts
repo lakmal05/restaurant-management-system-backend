@@ -18,14 +18,12 @@ import {
 } from 'typeorm';
 
 @Entity({
-  name: 'payment',
+  name: 'reservation',
 })
-export class PaymentEntity extends EntityRelationalHelper {
+export class ReservationEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true, type: 'float' })
-  amount: number;
 
   @Column()
   status: string;

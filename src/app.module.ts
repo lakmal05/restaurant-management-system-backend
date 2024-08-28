@@ -61,6 +61,8 @@ import { DiscountModule } from './discount/discount.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { InquiriesModule } from './inquiries/inquiries.module';
 import { ServiceModule } from './service/service.module';
+import { TableModule } from './table/table.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
@@ -140,6 +142,8 @@ import { ServiceModule } from './service/service.module';
     GalleryModule,
     InquiriesModule,
     ServiceModule,
+    TableModule,
+    ReservationModule,
   ],
   providers: [CleanupService, CacheMiddleware],
   exports: [CleanupService],

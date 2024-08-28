@@ -11,7 +11,7 @@ export class CommonLoginDto {
 
   @IsOptional()
   @IsString()
-  username: string;
+  public username: string;
 
   @IsNotEmpty()
   @IsString()
