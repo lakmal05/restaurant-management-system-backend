@@ -10,6 +10,7 @@ export class FindAllMapper {
       return null;
     }
   }
+  
 
   static mapItem(source, allCategories) {
     const hierarchy = this.setHierarchy(source, allCategories);
