@@ -38,7 +38,6 @@ export class AuthService {
     }
   }
 
- 
   /**
    * Validate by contact numbe when customer login
    * @param data otp and contact details like contact no,dial code etc
@@ -56,7 +55,7 @@ export class AuthService {
         break;
     }
   }
-  
+
   /**
    * Email validate otp use for whem customer forget the email password.then verify we sended otp
    * @param email input from the mobile app
@@ -77,7 +76,7 @@ export class AuthService {
    * @returnsetrun the token and user+customer object and tokens
    */
   async validateCustomerLogin(data: CommonLoginDto) {
-    const isExists = await this.userService.findByEmail(data.email);
+    const isExists = await this.userService.findByEmail(data.getEmail());
     console.log(isExists);
 
     if (!isExists) {
@@ -199,7 +198,6 @@ export class AuthService {
     );
   }
 
- 
   async customerRegisterionValidate(data: any) {
     return await this.customerService.customerRegisterionValidate(data);
   }
@@ -240,7 +238,6 @@ export class AuthService {
     }
   }
 
- 
   async getNewTokenByRefreshToken(refresh_token: string) {
     try {
       const decoded = this.jwtService.verify(refresh_token, {
@@ -262,8 +259,4 @@ export class AuthService {
       }
     }
   }
-
- 
- 
-  
 }

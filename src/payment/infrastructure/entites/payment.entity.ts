@@ -24,6 +24,8 @@ export class PaymentEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ nullable: true, type: 'float' })
+  amount: number;
 
   @Column()
   status: string;

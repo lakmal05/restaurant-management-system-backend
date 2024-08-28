@@ -60,6 +60,9 @@ import { FacilitiesModule } from './facilities/facilities.module';
 import { DiscountModule } from './discount/discount.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { InquiriesModule } from './inquiries/inquiries.module';
+import { ServiceModule } from './service/service.module';
+import { TableModule } from './table/table.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
@@ -138,6 +141,9 @@ import { InquiriesModule } from './inquiries/inquiries.module';
     DiscountModule,
     GalleryModule,
     InquiriesModule,
+    ServiceModule,
+    TableModule,
+    ReservationModule,
   ],
   providers: [CleanupService, CacheMiddleware],
   exports: [CleanupService],

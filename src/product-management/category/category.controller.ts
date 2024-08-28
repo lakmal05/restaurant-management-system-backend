@@ -18,11 +18,7 @@ import { UpdateCategoryDto } from './dto/update-cateogry.dto';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Get('category/' + 'find-all')
-  findAll() {
-    return this.categoryService.findAll();
-  }
-
+ 
   @Get(Prefixes.admin + 'category/' + 'find-all')
   adminFindAll(
     @Query('name') name?: string,
@@ -43,6 +39,9 @@ export class CategoryController {
   create(@Body() data: CategoryDto) {
     return this.categoryService.create(data);
   }
+
+
+
   @Put('category/' + 'update/:categoryId')
   update(
     @Param('categoryId') categoryId: string,
