@@ -1,18 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TableService } from './table.service';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TableEntity } from './infrastructure/entites/table.entity';
+import { CreateTableDto } from './dto/create-table.dto';
+import { UpdateTableDto } from './dto/update-table.dto';
 
-describe('TableService', () => {
-  let service: TableService;
+@Injectable()
+export class TableService {
+  constructor(
+    @InjectRepository(TableEntity)
+    private readonly tableRepository: Repository<TableEntity>,
+  ) {}
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [TableService],
-    }).compile();
+  async create(createTableDto: CreateTableDto): Promise<TableEntity> {
+    const table = this.tableRepository.create(createTableDto);
+    return await this.tableRepository.save(table);
+  }
 
-    service = module.get<TableService>(TableService);
-  });
+  async update(id: string, updateTableDto: UpdateTableDto) {
+    await this.tableRepository.update(id, updateTableDto);
+    return await this.tableRepository.findOneBy({ id });
+  }
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+  async delete(id: string): Promise<{ affected: number }> {
+    const result = await this.tableRepository.delete(id);
+    return { affected: result.affected || 0 };
+  }
+}

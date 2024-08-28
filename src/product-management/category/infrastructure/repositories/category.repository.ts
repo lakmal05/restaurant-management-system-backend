@@ -84,10 +84,10 @@ export class CategoryRepository implements CategoryAbstractRepository {
 
   async create(data: CategoryDto) {
     return await this.categoryRepository.save({
-      name: data.name,
-      description: data.description,
+      name: data.getName(),
+      description: data.getDescription(),
       file: {
-        id: data.fileId,
+        id: data.getFileId(),
       },
     });
   }
@@ -97,16 +97,17 @@ export class CategoryRepository implements CategoryAbstractRepository {
       return await this.categoryRepository.update(
         { id: categoryId },
         {
-          name: data.name,
+          name: data.getName(),
           file: {
-            id: data?.fileId,
+            id: data?.getFileId(),
           },
-          status: data.status,
+          status: data.getStatus(),
+          description: data.getDescription(),
         },
       );
     } catch (error) {
       throw new HttpException(
-        `Oops! Unable to update ${data.name} category , please try again later`,
+        `Oops! Unable to update ${data.getName()} category , please try again later`,
         HttpStatus.NOT_MODIFIED,
       );
     }
