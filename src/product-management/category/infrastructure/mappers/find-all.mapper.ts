@@ -17,7 +17,7 @@ export class FindAllMapper {
       id: source.id,
       name: source.name,
       status: source.status,
-      parentId: source.parentId,
+      description: source?.description,
       file: source.file
         ? {
             id: source.file?.id || null,

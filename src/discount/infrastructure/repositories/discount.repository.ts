@@ -14,13 +14,13 @@ export class DiscountRepository implements DiscountAbstractRepository {
 
   create(data: CreateDiscountDto) {
     return this.discountRepository.save({
-      title: data.title,
-      description: data.description,
-      startAt: data.startAt,
-      endAt: data.endAt,
-      value: data.value,
+      title: data.getTitle(),
+      description: data.getDescription(),
+      startAt: data.getStartAt(),
+      endAt: data.getEndAt(),
+      value: data.getValue(),
       file: {
-        id: data.fileId,
+        id: data.getFileId(),
       },
     });
   }

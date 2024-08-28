@@ -5,10 +5,12 @@ export class CategoryDto {
   @IsString()
   @Transform(({ value }) => value.trim())
   name: string;
+  
+  @IsString()
+  @IsOptional()
+  description: string;
 
   @IsString()
   @IsOptional()
   fileId: string;
-
-
 }

@@ -42,7 +42,6 @@ export class CategoryRepository implements CategoryAbstractRepository {
         });
       }
     }
- 
 
     // Pagination
     const [categories, totalCount] = await queryBuilder
@@ -86,6 +85,7 @@ export class CategoryRepository implements CategoryAbstractRepository {
   async create(data: CategoryDto) {
     return await this.categoryRepository.save({
       name: data.name,
+      description: data.description,
       file: {
         id: data.fileId,
       },

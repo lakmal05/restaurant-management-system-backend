@@ -6,8 +6,6 @@ export abstract class CategoryAbstractRepository {
 
   abstract findAll();
 
-  // abstract adminFindAll(filters: CategoryFiltersDto);
-
   abstract findByName(name: string);
 
   abstract findById(categoryId: string);
