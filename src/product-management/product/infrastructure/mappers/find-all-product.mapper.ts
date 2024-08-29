@@ -17,7 +17,7 @@ export class FindAllProductsMapper {
       name: source.name,
       status: source.status,
       category: {
-        id: source.category.name,
+        id: source.category.id,
         name: source.category.name,
       },
       productFile: source.productFile
