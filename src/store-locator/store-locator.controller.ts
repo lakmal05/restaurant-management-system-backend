@@ -18,16 +18,16 @@ export class StoreLocatorController {
 
   @Get('find-all')
   findAll(
-    @Query('postalCode') postalCode?: string,
-    @Query('city') city?: string,
-    @Query('addressLine') addressLine?: string,
+    // @Query('postalCode') bra?: string,
+    // @Query('city') city?: string,
+    // @Query('addressLine') addressLine?: string,
     @Query('perPage') perPage?: number,
     @Query('page') page?: number,
   ) {
     const filters: StoreLocatorFiltersDto = {
-      postalCode,
-      city,
-      addressLine,
+      // postalCode,
+      // city,
+      // addressLine,
       perPage,
       page,
     };

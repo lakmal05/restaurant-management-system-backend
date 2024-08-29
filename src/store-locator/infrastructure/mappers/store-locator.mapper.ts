@@ -14,11 +14,9 @@ export class StoreLocatorMapper {
   static mapItem(source) {
     return {
       id: source.id,
-      title: source.title,
-      postalCode:source.postalCode,
-      addressLine: source.addressLine,
-      city: source.city,
-      country: source.country,
+      name: source.name,
+      address: source.address,
+      facilities: source.facilities,
       url: source.url,
     };
   }
