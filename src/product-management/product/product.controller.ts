@@ -53,4 +53,9 @@ export class ProductController {
   update(@Param('productId') productId: string, @Body() data) {
     return this.productService.update(productId, data);
   }
+
+  @Get('product/' + 'find-by-id/' + ':productId')
+  findById(@Param('productId') productId: string) {
+    return this.productService.findById(productId);
+  }
 }

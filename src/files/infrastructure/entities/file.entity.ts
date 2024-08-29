@@ -5,18 +5,14 @@ import {
   AfterLoad,
   AfterInsert,
   CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
   OneToMany,
   JoinColumn,
   OneToOne,
-  ManyToOne,
 } from 'typeorm';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import appConfig from '../../../config/app.config';
 import { AppConfig } from 'src/config/app-config.type';
 import { CategoryEntity } from 'src/product-management/category/infrastructure/entites/category.entity';
-import { ProductEntity } from 'src/product-management/product/infrastructure/entites/product.entity';
 import { UserEntity } from 'src/user/infrastructure/entities/user.entity';
 import { ProductFileEntity } from 'src/product-file/infrastructure/entites/product-file.entity';
 import { DiscountEntity } from 'src/discount/infrastructure/entites/discount.entity';

@@ -2,6 +2,8 @@ import { CreateProductDto } from '../../dto/create-product.dto';
 import { ProductFiltersDto } from '../../dto/product-filters.dto';
 
 export abstract class ProductAbstractRepository {
+  abstract findById(productId: string);
+
   abstract update(productId: string, data: any);
 
   abstract changeStatus(productId: string, status: number);

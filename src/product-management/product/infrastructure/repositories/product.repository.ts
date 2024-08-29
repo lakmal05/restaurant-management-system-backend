@@ -19,6 +19,14 @@ export class ProductRepository implements ProductAbstractRepository {
     private readonly productRepository: Repository<ProductEntity>,
   ) {}
 
+  findById(productId: string) {
+    return this.productRepository.findOne({
+      where: {
+        id: productId,
+      },
+    });
+  }
+
   async findAll(filters: ProductFiltersDto) {
     const perPage = filters.perPage || 10;
     const page = filters.page || 1;
