@@ -15,6 +15,7 @@ import { MailService } from 'src/mail/mail.service';
 import { EmailActionEnum } from 'src/common/enum/email-action.enum';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
 import { CreateOrderDto } from 'src/order/dto/create-order.dto';
+import { OrderEntity } from 'src/order/infrastructure/entites/order.entity';
 
 @Injectable()
 export class TransactionRepository implements TransactionAbstractRepository {
@@ -23,7 +24,16 @@ export class TransactionRepository implements TransactionAbstractRepository {
     private readonly mailService: MailService,
     // private readonly discountService: DiscountService,
   ) {}
-  createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {}
+  createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {
+    return (
+      this,
+      this.connection.transaction(async (manager) => {
+        await manager.getRepository(OrderEntity).save({
+          
+        });
+      })
+    );
+  }
 
   async createStaff(data: CreateStaffDto) {
     return this.connection.transaction(async (manager) => {

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post, Query } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 
@@ -9,5 +9,12 @@ export class ReservationController {
   @Post('create')
   create(@Body() data: CreateReservationDto) {
     return this.reservationService.create(data);
+  }
+  @Patch('accept-or-reject/:reservationId')
+  acceptOrReject(
+    @Param('reservationId') reservationId: string,
+    @Query('status') status: any,
+  ) {
+    return this.reservationService.acceptOrReject(reservationId, status);
   }
 }

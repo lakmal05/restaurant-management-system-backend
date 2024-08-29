@@ -11,4 +11,8 @@ export class ReservationService {
   create(data: CreateReservationDto) {
     return this.reservationRepository.create(data);
   }
+
+  acceptOrReject(reservationId: string, status: any) {
+    return this.reservationRepository.acceptOrReject(reservationId, status);
+  }
 }

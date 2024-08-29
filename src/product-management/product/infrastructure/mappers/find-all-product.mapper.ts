@@ -10,14 +10,14 @@ export class FindAllProductsMapper {
   }
 
   static mapItem(source) {
-    console.log(source.productFile);
-
     const mappedProduct = {
       id: source.id,
       name: source.name,
       status: source.status,
+      price: source.price,
+      description: source.description,
       category: {
-        id: source.category.name,
+        id: source.category.id,
         name: source.category.name,
       },
       productFile: source.productFile

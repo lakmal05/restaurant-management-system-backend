@@ -11,6 +11,12 @@ export class ReservationRepository implements ReservationAbstractRepository {
     @InjectRepository(ReservationEntity)
     private readonly reservationRepository: Repository<ReservationEntity>,
   ) {}
+  acceptOrReject(reservationId: string, status: any) {
+    return this.reservationRepository.update(
+      { id: reservationId },
+      { status: status },
+    );
+  }
   create(data: CreateReservationDto) {
     return this.reservationRepository.save({
       email: data.getEmail(),

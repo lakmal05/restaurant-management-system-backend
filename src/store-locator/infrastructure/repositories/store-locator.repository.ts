@@ -27,23 +27,11 @@ export class StoreLocatorRepository implements StoreLocatorAbstractRepository {
     const queryBuilder =
       this.storeLocatorRepository.createQueryBuilder('storeLocator');
 
-    if (filters.postalCode) {
-      queryBuilder.andWhere('storeLocator.postalCode = :postalCode', {
-        postalCode: filters.postalCode,
-      });
-    }
-
-    if (filters.city) {
-      queryBuilder.andWhere('storeLocator.city ILIKE :city', {
-        city: `%${filters.city}%`,
-      });
-    }
-
-    if (filters.addressLine) {
-      queryBuilder.andWhere('storeLocator.addressLine ILIKE :addressLine', {
-        addressLine: `%${filters.addressLine}%`,
-      });
-    }
+    // if (filters.addressLine) {
+    //   queryBuilder.andWhere('storeLocator.addressLine ILIKE :addressLine', {
+    //     addressLine: `%${filters.addressLine}%`,
+    //   });
+    // }
     // Pagination logic
     const perPage = filters.perPage || 10; // default to 10 items per page if not specified
     const page = filters.page || 1; // default to the first page if not specified
