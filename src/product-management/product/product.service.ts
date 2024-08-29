@@ -39,4 +39,7 @@ export class ProductService {
   update(productId: string, data: any) {
     return this.productRepository.update(productId, data);
   }
+  findById(productId: string) {
+    return this.productRepository.findById(productId);
+  }
 }
