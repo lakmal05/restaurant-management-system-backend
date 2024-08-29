@@ -6,14 +6,14 @@ import { AdvancePaymentDto } from './dto/advancePayment.dto';
 
 @Injectable()
 export class PaymentService {
-  makeAdvancePayment //   return this.transactionService.updateOnlineTransactionResponseByOrderId(
-    (data: AdvancePaymentDto) {
-      throw new Error('Method not implemented.');
-  }
   constructor(
     private readonly paymentRepository: PaymentAbstractRepository,
     // private readonly transactionService:TransactionService
   ) {}
+
+  makeAdvancePayment(data: AdvancePaymentDto) {
+    return this.paymentRepository.makeAdvancePayment(data);
+  }
 
   // updateOnlineTransactionResponseByOrderId(
   //   orderId: string,

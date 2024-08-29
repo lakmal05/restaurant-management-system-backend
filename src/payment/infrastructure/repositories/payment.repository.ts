@@ -6,6 +6,7 @@ import { PaymentEntity } from '../entites/payment.entity';
 import { Repository } from 'typeorm';
 import { FindAllPaymentMapper } from '../mappers/find-all-payment.mapper';
 import { PaymentFiltersDto } from 'src/payment/dto/payment-filters.dto';
+import { AdvancePaymentDto } from 'src/payment/dto/advancePayment.dto';
 
 @Injectable()
 export class PaymentRepository implements PaymentAbstractRepository {
@@ -13,6 +14,12 @@ export class PaymentRepository implements PaymentAbstractRepository {
     @InjectRepository(PaymentEntity)
     private readonly paymentRepository: Repository<PaymentEntity>,
   ) {}
+  makeAdvancePayment(data: AdvancePaymentDto) {
+    return this.paymentRepository.create({
+      amount: data.amount,
+      callBackResponse: data.cardDetails,
+    });
+  }
 
   async findAll(filters: PaymentFiltersDto) {
     const page: number = filters.page || 0;
