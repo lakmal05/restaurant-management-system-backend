@@ -14,11 +14,14 @@ export class PaymentRepository implements PaymentAbstractRepository {
     @InjectRepository(PaymentEntity)
     private readonly paymentRepository: Repository<PaymentEntity>,
   ) {}
-  makeAdvancePayment(data: AdvancePaymentDto) {
-    return this.paymentRepository.create({
+  async makeAdvancePayment(data: AdvancePaymentDto) {
+    const makePayment = await this.paymentRepository.save({
       amount: data.amount,
-      callBackResponse: data.cardDetails,
+      callBackResponse: data?.cardDetails,
     });
+    console.log(makePayment);
+
+    return makePayment;
   }
 
   async findAll(filters: PaymentFiltersDto) {

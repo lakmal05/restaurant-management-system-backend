@@ -1,3 +1,4 @@
+import { PaymentStatusEnum } from 'src/common/enum/payment-status.enum';
 import { ReservationEntity } from 'src/reservation/infrastructure/entites/reservation.entity';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
@@ -19,7 +20,7 @@ export class PaymentEntity extends EntityRelationalHelper {
   @Column({ nullable: true, type: 'float' })
   amount: number;
 
-  @Column()
+  @Column({ default: PaymentStatusEnum.SUCCESS })
   status: string;
 
   @Column({ type: 'jsonb', nullable: true })
