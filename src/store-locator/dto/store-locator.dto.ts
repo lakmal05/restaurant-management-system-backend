@@ -2,20 +2,14 @@ import { IsString } from 'class-validator';
 
 export class StoreLocatorDto {
   @IsString()
-  title: string;
+  name: string;
 
   @IsString()
-  addressLine: string;
-
-  @IsString()
-  city: string;
-
-  @IsString()
-  country: string;
+  address: string;
 
   @IsString()
   url: string;
 
   @IsString()
-  postalCode: string;
+  facilities: string;
 }

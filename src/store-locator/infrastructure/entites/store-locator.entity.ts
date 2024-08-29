@@ -15,21 +15,16 @@ export class StoreLocatorEntity extends EntityRelationalHelper {
   id: string;
 
   @Column({ type: 'text' })
-  title: string;
+  name: string;
 
   @Column({ type: 'text' })
-  addressLine: string;
-
-  @Column({ type: 'text' })
-  city: string;
-
+  address: string;
 
   @Column({ type: 'text' })
   url: string;
 
-  @Column({ nullable: true })
-  postalCode: string;
-
+  @Column({ type: 'text' })
+  facilities: string;
 
   @CreateDateColumn()
   createdAt: Date;

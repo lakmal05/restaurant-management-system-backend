@@ -16,12 +16,10 @@ export class StoreLocatorRepository implements StoreLocatorAbstractRepository {
 
   create(data: StoreLocatorDto) {
     return this.storeLocatorRepository.save({
-      title: data.title,
-      addressLine: data.addressLine,
-      city: data.city,
-      country: data.country,
+      name: data.name,
+      address: data.address,
       url: data.url,
-      postalCode: data.postalCode,
+      facilities: data.facilities,
     });
   }
 
@@ -74,10 +72,9 @@ export class StoreLocatorRepository implements StoreLocatorAbstractRepository {
     return this.storeLocatorRepository.update(
       { id: storeLocatorId },
       {
-        title: data.title,
-        addressLine: data.addressLine,
-        city: data.city,
-        postalCode: data.postalCode,
+        name: data.name,
+        address: data.address,
+        facilities: data.facilities,
         url: data.url,
       },
     );
