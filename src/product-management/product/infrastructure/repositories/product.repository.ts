@@ -24,6 +24,12 @@ export class ProductRepository implements ProductAbstractRepository {
       where: {
         id: productId,
       },
+      relations: {
+        category: true,
+        productFile: {
+          file: true,
+        },
+      },
     });
   }
 
