@@ -28,9 +28,7 @@ export class TransactionRepository implements TransactionAbstractRepository {
     return (
       this,
       this.connection.transaction(async (manager) => {
-        await manager.getRepository(OrderEntity).save({
-          
-        });
+        await manager.getRepository(OrderEntity).save({});
       })
     );
   }
@@ -84,15 +82,16 @@ export class TransactionRepository implements TransactionAbstractRepository {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        deviceId: data.deviceId,
-        fcmToken: data.fcmToken,
         role: data.roleId,
       });
       const customer = await manager.getRepository(CustomerEntity).save({
         contactNo: data.contactNo,
-        dialCode: data.dialCode,
         user: user,
       });
+      await this.mailService.sendEmailRoute(
+        user,
+        EmailActionEnum.USER_CREDENTIALS,
+      );
       return CustomerMapper.toDomain(customer);
     });
   }

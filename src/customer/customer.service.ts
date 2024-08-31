@@ -33,20 +33,21 @@ export class CustomerService {
         HttpStatus.CONFLICT,
       );
     }
-    const isExistsContactNo =
-      await this.customerRepository.findByContactDetails(data);
-    if (isExistsContactNo) {
-      throw new HttpException(
-        `The contact number ${data.contactNo} is already registered`,
-        HttpStatus.CONFLICT,
-      );
-    }
-    // const otp = await this.smsService.sendOtp(
-    //   data.email,
-    //   ValidateMethodEnum.EMAIL,
-    // );
-    const msg = `An OTP has been sent to ${data.email}`;
-    return { msg };
+    // const isExistsContactNo =
+    //   await this.customerRepository.findByContactDetails(data);
+    // if (isExistsContactNo) {
+    //   throw new HttpException(
+    //     `The contact number ${data.contactNo} is already registered`,
+    //     HttpStatus.CONFLICT,
+    //   );
+    // }
+    // // const otp = await this.smsService.sendOtp(
+    // //   data.email,
+    // //   ValidateMethodEnum.EMAIL,
+    // // );
+    // const msg = `An OTP has been sent to ${data.email}`;
+    // return { msg };
+    return this.registerCustomer(data);
   }
 
   async registerCustomer(data: CreateCustomerDto) {
@@ -60,5 +61,4 @@ export class CustomerService {
   async update(data) {
     return await this.customerRepository.update(data);
   }
-
 }

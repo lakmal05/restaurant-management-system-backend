@@ -23,15 +23,11 @@ export class CustomerMapper {
         lastName: source.user.lastName,
         username: source.user.username,
         status: source.user.status,
-        // password: source.password,
         email: source.user.email,
-        deviceId: source.user.deviceId,
-        fcmToken: source.user.fcmToken,
         createdAt: source.user.createdAt,
         customer: {
           id: source.id,
           contactNo: source.contactNo,
-          dialCode: source.dialCode,
         },
       },
     };

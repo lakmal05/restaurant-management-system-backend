@@ -37,7 +37,7 @@ export class ReservationEntity extends EntityRelationalHelper {
   date: Date;
 
   @Column()
-  time: number;
+  time: string;
 
   @OneToOne(() => PaymentEntity, (payment) => payment.reservation, {
     nullable: true,

@@ -22,9 +22,6 @@ export class CreateCustomerDto {
   })
   @IsString({ message: 'Contact number must be a string' })
   contactNo: string;
-  
-  @IsString()
-  dialCode: string;
 
   @IsEmail({}, { message: 'Please enter a valid email address' })
   @IsNotEmpty()
@@ -32,16 +29,7 @@ export class CreateCustomerDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4, {
-    message: 'Your Password not storng enought',
-  })
   password: string;
-
-  @IsString()
-  deviceId: string;
-
-  @IsString()
-  fcmToken: string;
 
   roleId?: string;
 }

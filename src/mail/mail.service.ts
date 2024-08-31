@@ -15,6 +15,7 @@ export class MailService {
 
       case EmailActionEnum.USER_CREDENTIALS:
         return this.userCredentials(data);
+
       case EmailActionEnum.CUSTOMER_VERIFIACTION:
         return this.customerVarification(data);
       default:
@@ -39,7 +40,7 @@ export class MailService {
     const message = {
       to: data.email,
       from: process.env.FROM_EMAIL,
-      subject: 'Address Shop Admin User Credentials',
+      subject: 'Your Login User Credentials',
       html: email_content,
     };
 
