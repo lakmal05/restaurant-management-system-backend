@@ -1,4 +1,3 @@
-
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
   Column,
@@ -21,17 +20,17 @@ export class OrderEntity extends EntityRelationalHelper {
   @Column()
   orderCode: string;
 
-  @Column({ type: 'float' })
+  @Column({ type: 'float', nullable: true })
   discountAmount: number;
 
-  @Column({ type: 'float' })
+  @Column({ type: 'float', nullable: true })
   netTotal: number;
 
   @Column({ type: 'float' })
   subTotal: number;
 
   @Column()
-  paymentType: string; 
+  paymentType: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -10,4 +10,12 @@ export class DiscountService {
   create(data: CreateDiscountDto) {
     return this.discountRepository.create(data);
   }
+
+  findAll() {
+    return this.discountRepository.findAll();
+  }
+
+  delete(discountId: string) {
+    return this.discountRepository.delete(discountId);
+  }
 }

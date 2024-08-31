@@ -28,7 +28,9 @@ export class TransactionRepository implements TransactionAbstractRepository {
     return (
       this,
       this.connection.transaction(async (manager) => {
-        await manager.getRepository(OrderEntity).save({});
+        await manager.getRepository(OrderEntity).save({
+          
+        });
       })
     );
   }
