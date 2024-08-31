@@ -16,6 +16,11 @@ import { EmailActionEnum } from 'src/common/enum/email-action.enum';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
 import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 import { OrderEntity } from 'src/order/infrastructure/entites/order.entity';
+import { PaymentTypeEnum } from 'src/common/enum/payment-type.enum';
+import { OrderItemEntity } from 'src/order-item/infrastructure/entites/order-item.entity';
+import { PaymentEntity } from 'src/payment/infrastructure/entites/payment.entity';
+import { PaymentStatusEnum } from 'src/common/enum/payment-status.enum';
+import { OrderStatusEnum } from 'src/common/enum/order-status.enum';
 
 @Injectable()
 export class TransactionRepository implements TransactionAbstractRepository {
@@ -25,14 +30,52 @@ export class TransactionRepository implements TransactionAbstractRepository {
     // private readonly discountService: DiscountService,
   ) {}
   createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {
-    return (
-      this,
-      this.connection.transaction(async (manager) => {
-        await manager.getRepository(OrderEntity).save({
-          
+    return this.connection.transaction(async (manager) => {
+      const createdOrder = await manager.getRepository(OrderEntity).save({
+        paymentType: PaymentTypeEnum.CASH_ON_DELIVERY,
+        subTotal: data.subTotal,
+        description: data.description,
+        orderCode: await this.generateOrderCode(),
+        firstName: data.firstName,
+        lastName: data.lastName,
+        contactNo: data.contactNo,
+        email: data.email,
+        addressLine: data.addressLine,
+      });
+
+      for (const orderItem of data.orderItems) {
+        await manager.getRepository(OrderItemEntity).save({
+          product: {
+            id: orderItem?.id,
+          },
+          qty: orderItem.qty,
+          order: {
+            id: createdOrder.id,
+          },
         });
-      })
-    );
+      }
+      await manager.getRepository(PaymentEntity).save({
+        order: {
+          id: createdOrder.id,
+        },
+        status: OrderStatusEnum.PENDING,
+        amount: createdOrder.subTotal,
+      });
+
+      const user = await manager.getRepository(UserEntity).findOne({
+        where: {
+          id: data.userId,
+        },
+      });
+
+      const orderDetails = {
+        orderCode: createdOrder.orderCode,
+        email: user?.email,
+        subTotal: createdOrder.subTotal,
+      };
+      await this.mailService.orderConfirmation(orderDetails);
+      return createdOrder;
+    });
   }
 
   async createStaff(data: CreateStaffDto) {
@@ -105,92 +148,60 @@ export class TransactionRepository implements TransactionAbstractRepository {
   }
 
   async createOnlinePaymentOrderTransaction(data: CreateOrderDto) {
-    // const orderStatus = await this.orderStatusService.findIdByStatusName(
-    //   OrderStatusEnum.PENDING,
-    // );
-    // try {
-    //   return await this.connection.transaction(async (manager) => {
-    //     const createdOrder = await manager.getRepository(OrderEntity).save({
-    //       paymentType: PaymentTypeEnum.ONLINE_PAYMENT,
-    //       orderCode: await this.generateOrderCode(),
-    //       netTotal: data.netTotal,
-    //       shippingFee: 200,
-    //       subTotal: data.subTotal,
-    //       status: OrderStatusEnum.PENDING,
-    //       user: {
-    //         id: data.userId,
-    //       },
-    //       discount: {
-    //         id: data?.discountId ? data.discountId : undefined,
-    //       },
-    //     });
-    //     await manager.getRepository(DiliveryDetailEntity).save({
-    //       type: DiliveryDetailsTypeEnum.BILLING,
-    //       firstName: data.billingDetails.firstName,
-    //       lastName: data.billingDetails.lastName,
-    //       email: data.billingDetails.email,
-    //       contactNo: data.billingDetails.contactNo,
-    //       dialCode: data.billingDetails.dialCode,
-    //       country: data.billingDetails.country,
-    //       state: data.billingDetails.state,
-    //       provice: data.billingDetails.provice,
-    //       city: data.billingDetails.city,
-    //       addressLine1: data.billingDetails.addressLine1,
-    //       addressLine2: data.billingDetails.addressLine2,
-    //       postalCode: data.billingDetails.postalCode,
-    //       order: {
-    //         id: createdOrder.id,
-    //       },
-    //     });
-    //     await manager.getRepository(DiliveryDetailEntity).save({
-    //       type: DiliveryDetailsTypeEnum.SHIPPING,
-    //       firstName: data.shippingDetails.firstName,
-    //       lastName: data.shippingDetails.lastName,
-    //       email: data.shippingDetails.email,
-    //       contactNo: data.shippingDetails.contactNo,
-    //       dialCode: data.shippingDetails.dialCode,
-    //       country: data.shippingDetails.country,
-    //       state: data.shippingDetails.state,
-    //       provice: data.shippingDetails.provice,
-    //       city: data.shippingDetails.city,
-    //       addressLine1: data.shippingDetails.addressLine1,
-    //       addressLine2: data.shippingDetails.addressLine2,
-    //       postalCode: data.shippingDetails.postalCode,
-    //       order: {
-    //         id: createdOrder.id,
-    //       },
-    //     });
-    //     await manager.getRepository(PaymentEntity).save({
-    //       order: {
-    //         id: createdOrder.id,
-    //       },
-    //       status: PaymentStatusEnum.CANCELLED,
-    //     });
-    //     //** get session details form the gateway
-    //     const gatewaySessionDetails =
-    //       await this.seylanMastercardService.getSessionId(createdOrder);
-    //     const createdOrderDetails = {
-    //       order: createdOrder,
-    //       gatewaySessionDetails: gatewaySessionDetails,
-    //       billingEmail: data.billingDetails.email,
-    //     };
-    //     // return createOnlinePayementOrderMapper.toDomain(createdOrderDetails);
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    //   throw new HttpException(
-    //     'We encountered an issue while processing your order. Please try again later',
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
+    return this.connection.transaction(async (manager) => {
+      const createdOrder = await manager.getRepository(OrderEntity).save({
+        paymentType: PaymentTypeEnum.ONLINE_PAYMENT,
+        subTotal: data.subTotal,
+        description: data.description,
+        orderCode: await this.generateOrderCode(),
+        firstName: data.firstName,
+        lastName: data.lastName,
+        contactNo: data.contactNo,
+        email: data.email,
+        addressLine: data.addressLine,
+      });
+
+      for (const orderItem of data.orderItems) {
+        await manager.getRepository(OrderItemEntity).save({
+          product: {
+            id: orderItem?.id,
+          },
+          qty: orderItem.qty,
+          order: {
+            id: createdOrder.id,
+          },
+        });
+      }
+      await manager.getRepository(PaymentEntity).save({
+        order: {
+          id: createdOrder.id,
+        },
+        status: PaymentStatusEnum.SUCCESS,
+        amount: createdOrder.subTotal,
+      });
+
+      const user = await manager.getRepository(UserEntity).findOne({
+        where: {
+          id: data.userId,
+        },
+      });
+
+      const orderDetails = {
+        orderCode: createdOrder.orderCode,
+        email: user?.email,
+        subTotal: createdOrder.subTotal,
+      };
+      await this.mailService.orderConfirmation(orderDetails);
+      return createdOrder;
+    });
   }
 
   async generateOrderCode(): Promise<string> {
     let isUnique = false;
     let orderCode = '';
 
+    orderCode = this.createRandomCode('ORD-CODE');
     // while (!isUnique) {
-    //   orderCode = this.createRandomCode('ORD-CODE');
     //   const existingOrder = await this.orderRepository.findOne({
     //     where: { orderCode },
     //   });

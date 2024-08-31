@@ -60,18 +60,20 @@ export class MailService {
     console.log(data);
 
     const orderCode = data.orderCode;
+    const subTotal = data.subTotal;
     const orderConfirmationPath = path.join(
       __dirname,
       'mail-templates',
       'order-confirmation.hbs',
     );
     const email_template = fs.readFileSync(orderConfirmationPath, 'utf8');
-    const email_content = email_template.replace('{{orderCode}}', orderCode);
-    //   .replace('{{ another data }}', another data);
+    const email_content = email_template
+      .replace('{{orderCode}}', orderCode)
+      .replace('{{subTotal}}', subTotal);
     const message = {
       to: data.email,
       from: process.env.FROM_EMAIL,
-      subject: 'Address Shop Order Confirmation',
+      subject: 'Your Order Confirmation',
       html: email_content,
     };
     try {

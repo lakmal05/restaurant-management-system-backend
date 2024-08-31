@@ -1,10 +1,10 @@
+import { OrderItemEntity } from 'src/order-item/infrastructure/entites/order-item.entity';
+import { PaymentEntity } from 'src/payment/infrastructure/entites/payment.entity';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -20,6 +20,9 @@ export class OrderEntity extends EntityRelationalHelper {
   @Column()
   orderCode: string;
 
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
   @Column({ type: 'float', nullable: true })
   discountAmount: number;
 
@@ -31,6 +34,29 @@ export class OrderEntity extends EntityRelationalHelper {
 
   @Column()
   paymentType: string;
+
+  @OneToMany(() => OrderItemEntity, (orderItem) => orderItem.order, {
+    nullable: true,
+  })
+  orderItem: OrderItemEntity[];
+
+  @OneToMany(() => PaymentEntity, (payment) => payment.order)
+  payment: PaymentEntity[];
+
+  @Column({ nullable: true })
+  firstName: string;
+
+  @Column({ nullable: true })
+  lastName: string;
+
+  @Column({ nullable: true })
+  contactNo: string;
+
+  @Column({ nullable: true })
+  email: string;
+
+  @Column({ nullable: true })
+  addressLine: string;
 
   @CreateDateColumn()
   createdAt: Date;

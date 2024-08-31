@@ -1,8 +1,8 @@
 import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateOrderDto {
-  @IsArray()
-  productIds: [];
+  @IsOptional()
+  orderItems: OrderItemsDto[];
 
   @IsNumber()
   @IsOptional()
@@ -20,28 +20,62 @@ export class CreateOrderDto {
 
   @IsOptional()
   shippingFee: number;
-}
 
-export class DeliveryDetailDto {
-  type: any;
-
-  @IsString()
-  fistName: string;
+  @IsOptional()
+  description: string;
 
   @IsString()
+  userId: string;
+
+  @IsString()
+  firstName: string;
+
+  @IsString()
+  @IsOptional()
   lastName: string;
 
   @IsString()
+  @IsOptional()
   contactNo: string;
+
   @IsString()
+  @IsOptional()
   email: string;
 
   @IsString()
-  city: string;
+  @IsOptional()
+  addressLine: string;
+}
 
-  @IsString()
-  addressLine1: string;
+// export class DeliveryDetailDto {
+//   type: any;
 
+//   @IsString()
+//   fistName: string;
+
+//   @IsString()
+//   lastName: string;
+
+//   @IsString()
+//   contactNo: string;
+
+//   @IsString()
+//   email: string;
+
+//   @IsString()
+//   city: string;
+
+//   @IsString()
+//   addressLine1: string;
+
+//   @IsString()
+//   addressLine2: string;
+// }
+
+export class OrderItemsDto {
   @IsString()
-  addressLine2: string;
+  id: string;
+
+  @IsNumber()
+  qty: number;
 }
