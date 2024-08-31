@@ -16,6 +16,8 @@ import { EmailActionEnum } from 'src/common/enum/email-action.enum';
 import { UpdatePaymentTransactionResponseDto } from 'src/payment/dto/update-payment-transaction-response.dto';
 import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 import { OrderEntity } from 'src/order/infrastructure/entites/order.entity';
+import { PaymentTypeEnum } from 'src/common/enum/payment-type.enum';
+import { OrderItemEntity } from 'src/order-item/infrastructure/entites/order-item.entity';
 
 @Injectable()
 export class TransactionRepository implements TransactionAbstractRepository {
@@ -25,14 +27,42 @@ export class TransactionRepository implements TransactionAbstractRepository {
     // private readonly discountService: DiscountService,
   ) {}
   createCashOnDeliveryOrderTransaction(data: CreateOrderDto) {
-    return (
-      this,
-      this.connection.transaction(async (manager) => {
-        await manager.getRepository(OrderEntity).save({
-          
+    return this.connection.transaction(async (manager) => {
+      const createdOrder = await manager.getRepository(OrderEntity).save({
+        paymentType: PaymentTypeEnum.CASH_ON_DELIVERY,
+        subTotal: data.subTotal,
+        description: data.description,
+        orderCode: await this.generateOrderCode(),
+      });
+
+      for (const orderItem of data.orderItems) {
+        console.log(orderItem);
+
+        await manager.getRepository(OrderItemEntity).save({
+          product: {
+            id: orderItem?.id,
+          },
+          qty: orderItem.qty,
+          order: {
+            id: createdOrder.id,
+          },
         });
-      })
-    );
+      }
+
+      const user = await manager.getRepository(UserEntity).findOne({
+        where: {
+          id: data.userId,
+        },
+      });
+
+      const orderDetails = {
+        orderCode: createdOrder.orderCode,
+        email: user?.email,
+        subTotal: createdOrder.subTotal,
+      };
+      await this.mailService.orderConfirmation(orderDetails);
+      return createdOrder;
+    });
   }
 
   async createStaff(data: CreateStaffDto) {
@@ -189,8 +219,8 @@ export class TransactionRepository implements TransactionAbstractRepository {
     let isUnique = false;
     let orderCode = '';
 
+    orderCode = this.createRandomCode('ORD-CODE');
     // while (!isUnique) {
-    //   orderCode = this.createRandomCode('ORD-CODE');
     //   const existingOrder = await this.orderRepository.findOne({
     //     where: { orderCode },
     //   });
