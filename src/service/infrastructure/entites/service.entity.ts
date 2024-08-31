@@ -3,7 +3,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,6 +16,9 @@ export class ServiceEntity extends EntityRelationalHelper {
 
   @Column()
   name: string;
+
+  @Column({ nullable: true, type: 'text' })
+  description: string;
 
   @CreateDateColumn()
   createdAt: Date;
