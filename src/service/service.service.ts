@@ -11,4 +11,8 @@ export class ServiceService {
   findAll() {
     return this.serviceRepository.findAll();
   }
+
+  delete(serviceId: string) {
+    return this.serviceRepository.delete(serviceId);
+  }
 }

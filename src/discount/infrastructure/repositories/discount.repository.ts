@@ -11,6 +11,12 @@ export class DiscountRepository implements DiscountAbstractRepository {
     @InjectRepository(DiscountEntity)
     private readonly discountRepository: Repository<DiscountEntity>,
   ) {}
+  delete(discountId: string) {
+    return this.discountRepository.delete({ id: discountId });
+  }
+  findAll() {
+    return this.discountRepository.find();
+  }
 
   create(data: CreateDiscountDto) {
     return this.discountRepository.save({

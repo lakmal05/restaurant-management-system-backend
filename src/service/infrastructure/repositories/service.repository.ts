@@ -10,6 +10,9 @@ export class ServiceRepository implements ServiceAbstractRepository {
     @InjectRepository(ServiceEntity)
     private readonly serviceRepository: Repository<ServiceEntity>,
   ) {}
+  delete(serviceId: string) {
+    return this.serviceRepository.delete({ id: serviceId });
+  }
   create(data: any) {
     return this.serviceRepository.save({
       name: data.name,
