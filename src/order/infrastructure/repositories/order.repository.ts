@@ -10,4 +10,15 @@ export class OrderRepository implements OrderAbstractRepository {
     @InjectRepository(OrderEntity)
     private readonly orderRepository: Repository<OrderEntity>,
   ) {}
+  findAll() {
+    return this.orderRepository.find({
+      relations: {
+        orderItem: true,
+        payment: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
 }

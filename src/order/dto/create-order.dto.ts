@@ -26,32 +26,51 @@ export class CreateOrderDto {
 
   @IsString()
   userId: string;
-}
-
-export class DeliveryDetailDto {
-  type: any;
 
   @IsString()
-  fistName: string;
+  firstName: string;
 
   @IsString()
+  @IsOptional()
   lastName: string;
 
   @IsString()
+  @IsOptional()
   contactNo: string;
 
   @IsString()
+  @IsOptional()
   email: string;
 
   @IsString()
-  city: string;
-
-  @IsString()
-  addressLine1: string;
-
-  @IsString()
-  addressLine2: string;
+  @IsOptional()
+  addressLine: string;
 }
+
+// export class DeliveryDetailDto {
+//   type: any;
+
+//   @IsString()
+//   fistName: string;
+
+//   @IsString()
+//   lastName: string;
+
+//   @IsString()
+//   contactNo: string;
+
+//   @IsString()
+//   email: string;
+
+//   @IsString()
+//   city: string;
+
+//   @IsString()
+//   addressLine1: string;
+
+//   @IsString()
+//   addressLine2: string;
+// }
 
 export class OrderItemsDto {
   @IsString()

@@ -1,10 +1,13 @@
 import { PaymentStatusEnum } from 'src/common/enum/payment-status.enum';
+import { OrderEntity } from 'src/order/infrastructure/entites/order.entity';
 import { ReservationEntity } from 'src/reservation/infrastructure/entites/reservation.entity';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -28,6 +31,10 @@ export class PaymentEntity extends EntityRelationalHelper {
 
   @OneToOne(() => ReservationEntity, (reservation) => reservation.payment)
   reservation: ReservationEntity;
+
+  @ManyToOne(() => OrderEntity, (order) => order.payment)
+  @JoinColumn({ name: 'orderId' })
+  order: OrderEntity;
 
   @CreateDateColumn()
   createdAt: Date;
