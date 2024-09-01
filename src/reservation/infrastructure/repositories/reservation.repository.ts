@@ -11,13 +11,16 @@ export class ReservationRepository implements ReservationAbstractRepository {
     @InjectRepository(ReservationEntity)
     private readonly reservationRepository: Repository<ReservationEntity>,
   ) {}
+  findAll() {
+    return this.reservationRepository.find();
+  }
   acceptOrReject(reservationId: string, status: any) {
     return this.reservationRepository.update(
       { id: reservationId },
       { status: status },
     );
   }
-  create(data: CreateReservationDto) {
+  async create(data: CreateReservationDto) {
     return this.reservationRepository.save({
       email: data.getEmail(),
       contactNo: data.getContactNo(),
@@ -25,6 +28,17 @@ export class ReservationRepository implements ReservationAbstractRepository {
       date: data.getDate(),
       personCount: data.getPersonCount(),
       payment: data.getPaymentId(),
+      reservationCode: await this.createRandomCode(),
     });
+  }
+
+  createRandomCode(): string {
+    const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let result = '';
+    for (let i = 0; i < 7; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
   }
 }

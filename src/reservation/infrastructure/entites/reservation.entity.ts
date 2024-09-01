@@ -24,6 +24,9 @@ export class ReservationEntity extends EntityRelationalHelper {
   @Column({ type: 'jsonb', nullable: true })
   callBackResponse: Record<string, any>;
 
+  @Column({ nullable: true })
+  reservationCode: string;
+
   @Column()
   email: string;
 

@@ -15,4 +15,7 @@ export class ReservationService {
   acceptOrReject(reservationId: string, status: any) {
     return this.reservationRepository.acceptOrReject(reservationId, status);
   }
+  findAll() {
+    return this.reservationRepository.findAll();
+  }
 }
