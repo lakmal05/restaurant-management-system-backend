@@ -41,6 +41,7 @@ export class TransactionRepository implements TransactionAbstractRepository {
         contactNo: data.contactNo,
         email: data.email,
         addressLine: data.addressLine,
+        orderType: data.orderType,
       });
 
       for (const orderItem of data.orderItems) {
@@ -159,6 +160,7 @@ export class TransactionRepository implements TransactionAbstractRepository {
         contactNo: data.contactNo,
         email: data.email,
         addressLine: data.addressLine,
+        orderType: data.orderType,
       });
 
       for (const orderItem of data.orderItems) {
