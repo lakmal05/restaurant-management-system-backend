@@ -21,6 +21,6 @@ export class ServiceRepository implements ServiceAbstractRepository {
   }
 
   findAll() {
-    return this.serviceRepository.find();
+    return this.serviceRepository.find({});
   }
 }
