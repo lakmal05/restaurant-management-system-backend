@@ -1,11 +1,13 @@
 import { OrderStatusEnum } from 'src/common/enum/order-status.enum';
 import { PaymentEntity } from 'src/payment/infrastructure/entites/payment.entity';
+import { UserEntity } from 'src/user/infrastructure/entities/user.entity';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -23,6 +25,9 @@ export class ReservationEntity extends EntityRelationalHelper {
 
   @Column({ type: 'jsonb', nullable: true })
   callBackResponse: Record<string, any>;
+
+  @Column({ nullable: true })
+  reservationCode: string;
 
   @Column()
   email: string;
@@ -44,6 +49,10 @@ export class ReservationEntity extends EntityRelationalHelper {
   })
   @JoinColumn({ name: 'paymentId' })
   payment: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.reservation)
+  @JoinColumn({ name: 'userId' })
+  user: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;

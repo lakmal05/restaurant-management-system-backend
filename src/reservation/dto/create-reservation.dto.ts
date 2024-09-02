@@ -19,6 +19,9 @@ export class CreateReservationDto {
   @IsString()
   private paymentId: string;
 
+  @IsString()
+  userId: string;
+
   public getEmail(): string {
     return this.email;
   }

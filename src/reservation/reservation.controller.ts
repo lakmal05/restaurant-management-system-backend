@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 
@@ -16,5 +24,10 @@ export class ReservationController {
     @Query('status') status: any,
   ) {
     return this.reservationService.acceptOrReject(reservationId, status);
+  }
+
+  @Get('find-all')
+  findAll() {
+    return this.reservationService.findAll();
   }
 }
