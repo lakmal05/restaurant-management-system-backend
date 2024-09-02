@@ -3,6 +3,7 @@ import { SendgridService } from 'src/services/sendgrid/sendgrid.service';
 import * as path from 'path';
 import * as fs from 'fs';
 import { EmailActionEnum } from 'src/common/enum/email-action.enum';
+import { OrderStatusEnum } from 'src/common/enum/order-status.enum';
 
 @Injectable()
 export class MailService {
@@ -110,9 +111,6 @@ export class MailService {
   }
 
   async customerVarification(data: any) {
-    // console.log(data);
-
-    // const email = data.email;
     const otpMessage = data.message;
     const sendUserCredentialPath = path.join(
       __dirname,
@@ -133,6 +131,65 @@ export class MailService {
       return await this.sendGridService.sendEmail(message);
     } catch (error) {
       console.error('Error sending email:', error);
+    }
+  }
+
+  async sendReservationApproveOrReject(data) {
+    const reservationCode = data.reservationCode;
+    const reservationDate = data.date;
+    const reservationTime = data.time;
+    const personCount = data.personCount;
+    const email = data.email;
+    if (data.status === OrderStatusEnum.ACCEPT) {
+      const sendUserCredentialPath = path.join(
+        __dirname,
+        'mail-templates',
+        'reservation.accept.hbs',
+      );
+      const email_template = fs.readFileSync(sendUserCredentialPath, 'utf8');
+      const email_content = email_template
+        .replace('{{reservationDate}}', reservationDate)
+        .replace('{{ reservationCode }}', reservationCode)
+        .replace('{{ reservationTime }}', reservationTime)
+        .replace('{{ personCount }}', personCount);
+
+      const message = {
+        to: email,
+        from: process.env.FROM_EMAIL,
+        subject: ' Your Reservation Confirmation ',
+        html: email_content,
+      };
+
+      try {
+        return await this.sendGridService.sendEmail(message);
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
+    } else {
+      const sendUserCredentialPath = path.join(
+        __dirname,
+        'mail-templates',
+        'reservation.reject.hbs',
+      );
+      const email_template = fs.readFileSync(sendUserCredentialPath, 'utf8');
+      const email_content = email_template
+        .replace('{{reservationDate}}', reservationDate)
+        .replace('{{ reservationCode }}', reservationCode)
+        .replace('{{ reservationTime }}', reservationTime)
+        .replace('{{ personCount }}', personCount);
+
+      const message = {
+        to: email,
+        from: process.env.FROM_EMAIL,
+        subject: ' Your Reservation Confirmation ',
+        html: email_content,
+      };
+
+      try {
+        return await this.sendGridService.sendEmail(message);
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
     }
   }
 }

@@ -25,45 +25,55 @@ export class PaymentRepository implements PaymentAbstractRepository {
   }
 
   async findAll(filters: PaymentFiltersDto) {
-    const page: number = filters.page || 0;
-    const perPage: number = filters.perPage || 15;
+    // const page: number = filters.page || 0;
+    // const perPage: number = filters.perPage || 15;
 
-    const { orderCode } = filters;
-    const queryBuilder = await this.paymentRepository
-      .createQueryBuilder('payment')
-      .leftJoinAndSelect('payment.order', 'order');
+    // const { orderCode } = filters;
+    // const queryBuilder = await this.paymentRepository
+    //   .createQueryBuilder('payment')
+    //   .leftJoinAndSelect('payment.order', 'order');
 
-    // if (orderCode) {
-    //   query.andWhere('order.orderCode = :orderCode', { orderCode });
-    // }
+    // // if (orderCode) {
+    // //   query.andWhere('order.orderCode = :orderCode', { orderCode });
+    // // }
 
-    if (filters.orderCode) {
-      queryBuilder.andWhere(
-        '(order.orderCode ILIKE :orderCode OR order.orderCode ILIKE :orderCode)',
-        { orderCode: `%${filters.orderCode}%` },
-      );
-    }
+    // // if (filters.orderCode) {
+    // //   queryBuilder.andWhere(
+    // //     '(order.orderCode ILIKE :orderCode OR order.orderCode ILIKE :orderCode)',
+    // //     { orderCode: `%${filters.orderCode}%` },
+    // //   );
+    // // }
 
-    // if (filters.paymnetStatus) {
-    //   query.andWhere('payment.status = :status', { paymnetStatus });
-    // }
+    // // if (filters.paymnetStatus) {
+    // //   query.andWhere('payment.status = :status', { paymnetStatus });
+    // // }
 
-    queryBuilder.orderBy('payment.createdAt', 'DESC');
+    // queryBuilder.orderBy('payment.createdAt', 'DESC');
 
-    const [allPayments, total] = await queryBuilder
-      .skip((page - 1) * perPage)
-      .take(perPage)
-      .getManyAndCount();
+    // const [allPayments, total] = await queryBuilder
+    //   .skip((page - 1) * perPage)
+    //   .take(perPage)
+    //   .getManyAndCount();
 
-    const totalPages = Math.ceil(total / perPage);
-    const hasNextPage = page < totalPages;
-    return {
-      data: FindAllPaymentMapper.toDomain(allPayments),
-      totalCount: total,
-      currentPage: page,
-      totalPages,
-      hasNextPage,
-      perPage,
-    };
+    // const totalPages = Math.ceil(total / perPage);
+    // const hasNextPage = page < totalPages;
+    // return {
+    //   data: FindAllPaymentMapper.toDomain(allPayments),
+    //   totalCount: total,
+    //   currentPage: page,
+    //   totalPages,
+    //   hasNextPage,
+    //   perPage,
+    // };
+    return this.paymentRepository.find({
+      relations: {
+        order: {
+          orderItem: {
+            product: true,
+          },
+        },
+        reservation: true,
+      },
+    });
   }
 }
