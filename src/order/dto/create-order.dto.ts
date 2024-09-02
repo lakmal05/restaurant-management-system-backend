@@ -4,6 +4,9 @@ export class CreateOrderDto {
   @IsOptional()
   orderItems: OrderItemsDto[];
 
+  @IsOptional()
+  orderType: string;
+
   @IsNumber()
   @IsOptional()
   discountAmount: number;

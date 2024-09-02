@@ -1,5 +1,7 @@
+export abstract class InquiriesAbstractRepository {
+  abstract findAll();
 
+  abstract reply(inquirieId: string, message: string);
 
-export abstract class  InquiriesAbstractRepository {
- 
+  abstract submit(data: any);
 }

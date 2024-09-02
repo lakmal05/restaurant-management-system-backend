@@ -1,3 +1,4 @@
+import { OrderStatusEnum } from 'src/common/enum/order-status.enum';
 import { OrderItemEntity } from 'src/order-item/infrastructure/entites/order-item.entity';
 import { PaymentEntity } from 'src/payment/infrastructure/entites/payment.entity';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
@@ -16,6 +17,12 @@ import {
 export class OrderEntity extends EntityRelationalHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ default: OrderStatusEnum.PENDING, nullable: true })
+  status: string;
+
+  @Column({ nullable: true })
+  orderType: string;
 
   @Column()
   orderCode: string;

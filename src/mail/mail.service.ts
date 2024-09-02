@@ -192,4 +192,29 @@ export class MailService {
       }
     }
   }
+  async sendReplyInquire(email: any, adminMessage: any) {
+    const sendUserCredentialPath = path.join(
+      __dirname,
+      'mail-templates',
+      'reply.hbs',
+    );
+    const email_template = fs.readFileSync(sendUserCredentialPath, 'utf8');
+    const email_content = email_template.replace(
+      '{{adminMessage}}',
+      adminMessage,
+    );
+
+    const message = {
+      to: email,
+      from: process.env.FROM_EMAIL,
+      subject: ' Your Inquire Reply ',
+      html: email_content,
+    };
+
+    try {
+      return await this.sendGridService.sendEmail(message);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  }
 }

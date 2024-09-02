@@ -1,3 +1,4 @@
+import { OrderStatusEnum } from 'src/common/enum/order-status.enum';
 import { EntityRelationalHelper } from 'src/utils/relational-entity-helper';
 import {
   Column,
@@ -18,7 +19,16 @@ export class InquiriesEntity extends EntityRelationalHelper {
   id: string;
 
   @Column()
-  orderCode: string;
+  email: string;
+
+  @Column({ type: 'text' })
+  message: string;
+
+  @Column({ type: 'text', nullable: true })
+  replyMessage: string;
+
+  @Column({ default: OrderStatusEnum.PENDING })
+  status: string;
 
   @CreateDateColumn()
   createdAt: Date;
