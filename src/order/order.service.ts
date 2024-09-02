@@ -22,4 +22,8 @@ export class OrderService {
   findAll() {
     return this.orderRepository.findAll();
   }
+
+  findById(orderId: string) {
+    return this.orderRepository.findById(orderId);
+  }
 }

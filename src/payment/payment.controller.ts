@@ -38,4 +38,9 @@ export class PaymentController {
     };
     return this.paymentService.findAll(filters);
   }
+
+  @Get('payment/' + 'find-by-id/:paymentId')
+  findById(@Param('paymentId') paymentId: string) {
+    return this.paymentService.findById(paymentId);
+  }
 }

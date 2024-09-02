@@ -10,6 +10,22 @@ export class OrderRepository implements OrderAbstractRepository {
     @InjectRepository(OrderEntity)
     private readonly orderRepository: Repository<OrderEntity>,
   ) {}
+  findById(orderId: string) {
+    return this.orderRepository.findOne({
+      where: {
+        id: orderId,
+      },
+      relations: {
+        orderItem: {
+          product: {
+            productFile: {
+              file: true,
+            },
+          },
+        },
+      },
+    });
+  }
   findAll() {
     return this.orderRepository.find({
       relations: {

@@ -14,6 +14,13 @@ export class PaymentRepository implements PaymentAbstractRepository {
     @InjectRepository(PaymentEntity)
     private readonly paymentRepository: Repository<PaymentEntity>,
   ) {}
+  findById(paymentId: string) {
+    return this.paymentRepository.findOne({
+      where: {
+        id: paymentId,
+      },
+    });
+  }
   async makeAdvancePayment(data: AdvancePaymentDto) {
     const makePayment = await this.paymentRepository.save({
       amount: data.amount,
@@ -69,7 +76,11 @@ export class PaymentRepository implements PaymentAbstractRepository {
       relations: {
         order: {
           orderItem: {
-            product: true,
+            product: {
+              productFile: {
+                file: true,
+              },
+            },
           },
         },
         reservation: true,

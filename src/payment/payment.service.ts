@@ -28,4 +28,8 @@ export class PaymentService {
   findAll(filters: PaymentFiltersDto) {
     return this.paymentRepository.findAll(filters);
   }
+
+  findById(paymentId: string) {
+    return this.paymentRepository.findById(paymentId);
+  }
 }
