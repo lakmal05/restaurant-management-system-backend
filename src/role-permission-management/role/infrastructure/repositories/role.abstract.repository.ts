@@ -4,7 +4,7 @@ import { RoleFiltersDto } from '../../dto/role-filters.dto';
 export abstract class RoleAbstractRepository {
   abstract findById(roleId: string, withPermission: boolean);
 
-  abstract findAll(filters: RoleFiltersDto);
+  abstract findAll(filters?: RoleFiltersDto);
 
   abstract create(
     data: Omit<Role, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>,

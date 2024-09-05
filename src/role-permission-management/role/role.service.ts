@@ -6,6 +6,12 @@ import { RoleFiltersDto } from './dto/role-filters.dto';
 
 @Injectable()
 export class RoleService {
+  findOne(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+  delete(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly roleRepository: RoleAbstractRepository) {}
   findById(roleId: string, withPermission: boolean) {
     return this.roleRepository.findById(roleId, withPermission);
@@ -29,7 +35,7 @@ export class RoleService {
     }
   }
 
-  findAll(filters: RoleFiltersDto) {
+  findAll(filters?: RoleFiltersDto) {
     return this.roleRepository.findAll(filters);
   }
   update(roleId: string, data: any) {
