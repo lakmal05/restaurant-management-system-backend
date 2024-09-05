@@ -95,8 +95,8 @@ export class MailService {
     );
     const email_template = fs.readFileSync(email_template_path, 'utf8');
     const email_content = email_template
-      .replace('{{ username }}', username)
-      .replace('{{ password }}', password);
+      .replace('{{username}}', username)
+      .replace('{{password}}', password);
     const message = {
       to: email,
       from: process.env.FROM_EMAIL,
@@ -149,9 +149,9 @@ export class MailService {
       const email_template = fs.readFileSync(sendUserCredentialPath, 'utf8');
       const email_content = email_template
         .replace('{{reservationDate}}', reservationDate)
-        .replace('{{ reservationCode }}', reservationCode)
-        .replace('{{ reservationTime }}', reservationTime)
-        .replace('{{ personCount }}', personCount);
+        .replace('{{reservationCode}}', reservationCode)
+        .replace('{{reservationTime}}', reservationTime)
+        .replace('{{personCount}}', personCount);
 
       const message = {
         to: email,
@@ -174,9 +174,9 @@ export class MailService {
       const email_template = fs.readFileSync(sendUserCredentialPath, 'utf8');
       const email_content = email_template
         .replace('{{reservationDate}}', reservationDate)
-        .replace('{{ reservationCode }}', reservationCode)
-        .replace('{{ reservationTime }}', reservationTime)
-        .replace('{{ personCount }}', personCount);
+        .replace('{{reservationCode}}', reservationCode)
+        .replace('{{reservationTime}}', reservationTime)
+        .replace('{{personCount}}', personCount);
 
       const message = {
         to: email,
