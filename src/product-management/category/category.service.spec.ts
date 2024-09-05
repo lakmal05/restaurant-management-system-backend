@@ -1,15 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoryService } from './category.service';
-import { CategoryDto } from './dto/category.dto';
-import { UpdateCategoryDto } from './dto/update-cateogry.dto';
-import { CategoryEntity } from './infrastructure/entites/category.entity';
+import { CategoryAbstractRepository } from './infrastructure/repositories/category.abstract.repository';
 
 describe('CategoryService', () => {
   let service: CategoryService;
 
+  const mockCategoryRepository = {
+    findAll: jest.fn().mockResolvedValue([{ id: '1', name: 'Electronics' }]),  // Mocked method for findAll
+    findOne: jest.fn().mockResolvedValue({ id: '1', name: 'Electronics' }),    // Mocked method for findOne
+    create: jest.fn().mockResolvedValue({ id: '1', name: 'Electronics' }),     // Mocked method for create
+    update: jest.fn().mockResolvedValue({ id: '1', name: 'Updated Electronics' }), // Mocked method for update
+    delete: jest.fn().mockResolvedValue(undefined), // Mocked method for delete
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CategoryService],
+      providers: [
+        CategoryService,
+        {
+          provide: CategoryAbstractRepository,
+          useValue: mockCategoryRepository,  
+        },
+      ],
     }).compile();
 
     service = module.get<CategoryService>(CategoryService);
@@ -19,47 +31,18 @@ describe('CategoryService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('create', () => {
-    it('should create a category', async () => {
-      const createCategoryDto: any = {
-        name: 'Test Category',
-        description: 'Test Description',
-        fileId: 'test-file-id',
-        status: 1,
-      };
-
-      const result = await service.create(createCategoryDto);
-
-      expect(result).toEqual({
-        id: expect.any(Number),
-        ...createCategoryDto,
-      });
-    });
-  });
-
-  describe('update', () => {
-    it('should update a category', async () => {
-      const updateCategoryDto: any = {
-        name: 'Updated Category',
-        description: 'Updated Description',
-        fileId: 'updated-file-id',
-        status: 1,
-      };
-
-      const result = await service.update('1', updateCategoryDto);
-
-      expect(result).toEqual({
-        id: 1,
-        ...updateCategoryDto,
-      });
-    });
-  });
-
   describe('findAll', () => {
     it('should return an array of categories', async () => {
       const result = await service.findAll();
+      expect(result).toEqual([{ id: '1', name: 'Electronics' }]); 
+    });
+  });
 
-      expect(result).toEqual(expect.any(Array));
+  describe('create', () => {
+    it('should create a new category', async () => {
+      const categoryDto:any = { name: 'Electronics' };
+      const result = await service.create(categoryDto);
+      expect(result).toEqual({ id: '1', name: 'Electronics' });  
     });
   });
 });

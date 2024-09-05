@@ -17,7 +17,7 @@ import {
 @Entity({
   name: 'customer',
 })
-export class CustomerEntity extends EntityRelationalHelper {
+export class CustomerEntity  {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

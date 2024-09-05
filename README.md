@@ -4,30 +4,6 @@ npm run migration:generate -- src/database/migrations/social
 
 npm run migration:run
 
-design pattern
+docker build -t restaurant-management-system .
 
-//MiddlewareConsumer
-
-//Singleton Pattern
-@Injectable()
-export class SingletonService {
-private readonly config: ConfigService;
-
-constructor(configService: ConfigService) {
-this.config = configService;
-}
-
-getConfigValue(key: string): string {
-return this.config.get(key);
-}
-}
-
-//Dependency Injection Pattern
-@Injectable()
-export class SomeService {
-  constructor(private readonly otherService: OtherService) {}
-  
-  async doSomething() {
-    return this.otherService.someMethod();
-  }
-}
+docker run -p 3000:3000 restaurant-management-system
