@@ -3,6 +3,9 @@ import { InquiriesService } from './inquiries.service';
 
 @Controller('inquirie')
 export class InquiriesController {
+  createInquiry(userId: string, message: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly inquiriesService: InquiriesService) {}
 
   @Post('submit')

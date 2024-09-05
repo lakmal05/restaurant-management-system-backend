@@ -10,17 +10,15 @@ describe('ReservationService', () => {
 
   // Mock data
   const dummyReservation: Object = {
-    id: 'dummy-id',
+    id: '123',
     status: 'PENDING',
     callBackResponse: null,
-    reservationCode: 'RES123',
-    email: 'test@example.com',
+    reservationCode: 'RES-123',
+    email: 'invalidEmail',
     personCount: 2,
     contactNo: '1234567890',
     date: new Date(),
     time: '18:00',
-    payment: null,
-    user: null,
     createdAt: new Date(),
     updatedAt: new Date(),
   };

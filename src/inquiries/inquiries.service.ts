@@ -3,6 +3,10 @@ import { InquiriesAbstractRepository } from './infrastructure/repositories/inqui
 
 @Injectable()
 export class InquiriesService {
+  createInquiry(createInquiry: any) {
+    throw new Error('Method not implemented.');
+  }
+
   constructor(
     private readonly inquiresRepository: InquiriesAbstractRepository,
   ) {}
