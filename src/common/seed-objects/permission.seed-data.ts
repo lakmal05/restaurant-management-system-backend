@@ -85,4 +85,86 @@ export const PermissionsHierarchyObj = {
       },
     },
   },
+
+  ORDER: {
+    PARENT: {
+      PERMISSION_NAME: 'ORDER',
+      DESCRIPTION: 'Order',
+    },
+    CHILDREN: {
+      UPDATE_ORDER: {
+        PERMISSION_NAME: 'UPDATE_ORDER',
+        DESCRIPTION: 'Update',
+      },
+    },
+  },
+  PAYMENT: {
+    PARENT: {
+      PERMISSION_NAME: 'PAYMENT',
+      DESCRIPTION: 'Payment',
+    },
+    CHILDREN: {
+      VIEW_PAYMENT: {
+        PERMISSION_NAME: 'VIEW_PAYMENT',
+        DESCRIPTION: 'View',
+      },
+    },
+  },
+
+  BRANCH: {
+    PARENT: {
+      PERMISSION_NAME: 'BRANCH',
+      DESCRIPTION: 'Branch',
+    },
+    CHILDREN: {
+      VIEW_BRANCH: {
+        PERMISSION_NAME: 'VIEW_BRANCH',
+        DESCRIPTION: 'View',
+      },
+      UPDATE_BRANCH: {
+        PERMISSION_NAME: 'UPDATE_BRANCH',
+        DESCRIPTION: 'Update',
+      },
+      DELETE_BRANCH: {
+        PERMISSION_NAME: 'DELETE_BRANCH',
+        DESCRIPTION: 'Delete',
+      },
+      CREATE_BRANCH: {
+        PERMISSION_NAME: 'CREATE_BRANCH',
+        DESCRIPTION: 'Create',
+      },
+    },
+  },
+  INQUIRY: {
+    PARENT: {
+      PERMISSION_NAME: 'INQUIRY',
+      DESCRIPTION: 'Inquiry',
+    },
+    CHILDREN: {
+      VIEW_INQUIRY: {
+        PERMISSION_NAME: 'VIEW_INQUIRY',
+        DESCRIPTION: 'View',
+      },
+      REPLY_INQUIRY: {
+        PERMISSION_NAME: 'REPLY_INQUIRY',
+        DESCRIPTION: 'Reply',
+      },
+    },
+  },
+  RESERVATION: {
+    PARENT: {
+      PERMISSION_NAME: 'RESERVATION',
+      DESCRIPTION: 'Rervation',
+    },
+    CHILDREN: {
+      VIEW_RESERVATION: {
+        PERMISSION_NAME: 'VIEW_RESERVATION',
+        DESCRIPTION: 'View',
+      },
+      UPDATE_RESERVATION: {
+        PERMISSION_NAME: ' UPDATE_RESERVATION',
+        DESCRIPTION: 'Update',
+      },
+    },
+  },
 };
